@@ -1,0 +1,326 @@
+name: Publish Packages
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g., 1.2.0). Leave empty to use release tag.'
+        required: false
+      dry_run:
+        description: 'Dry run — build but do not publish'
+        type: boolean
+        default: false
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  # ─── Step 1: Validate ───────────────────────────────────────────────────────
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+  # ─── Step 2: Build ──────────────────────────────────────────────────────────
+  build:
+    name: Build All Packages
+    runs-on: ubuntu-latest
+    needs: validate
+    outputs:
+      version: ${{ steps.resolve_version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve version
+        id: resolve_version
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          elif [ -n "${{ github.event.release.tag_name }}" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            VERSION="${VERSION#v}"
+          else
+            VERSION=$(node -p "require('./package.json').version")
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "✅ Resolved version: $VERSION"
+
+      - name: Bump versions & sync core dependency
+        run: |
+          VERSION="${{ steps.resolve_version.outputs.version }}"
+          echo "📦 Bumping all packages to v$VERSION"
+
+          # Bump root
+          npm version "$VERSION" --no-git-tag-version --allow-same-version
+
+          # Bump @content-renderer/core
+          cd packages/core
+          npm version "$VERSION" --no-git-tag-version --allow-same-version
+          cd ../..
+
+          # Bump @content-renderer/react-and-native AND update its core dependency
+          cd packages/react-and-native
+          npm version "$VERSION" --no-git-tag-version --allow-same-version
+          # Update the pinned core version to match
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            pkg.dependencies['@content-renderer/core'] = '$VERSION';
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+            console.log('✅ Updated @content-renderer/core dep to', '$VERSION');
+          "
+          cd ../..
+
+          echo "📋 Final package versions:"
+          node -p "require('./package.json').version"
+          node -p "require('./packages/core/package.json').version"
+          node -p "require('./packages/react-and-native/package.json').version"
+          node -p "require('./packages/react-and-native/package.json').dependencies['@content-renderer/core']"
+
+      - name: Build @content-renderer/core
+        run: npm run build --workspace=@content-renderer/core
+
+      - name: Build @content-renderer/react-and-native
+        run: npm run build --workspace=@content-renderer/react-and-native
+
+      - name: Upload core dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-dist-${{ steps.resolve_version.outputs.version }}
+          path: packages/core/dist/
+          retention-days: 3
+
+      - name: Upload react-and-native dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-and-native-dist-${{ steps.resolve_version.outputs.version }}
+          path: packages/react-and-native/dist/
+          retention-days: 3
+
+      - name: Upload updated package.json files
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-json-files-${{ steps.resolve_version.outputs.version }}
+          path: |
+            package.json
+            packages/core/package.json
+            packages/react-and-native/package.json
+          retention-days: 3
+
+  # ─── Step 3: Publish core ────────────────────────────────────────────────────
+  publish-core:
+    name: Publish @content-renderer/core
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ github.event.inputs.dry_run != 'true' }}
+    permissions:
+      contents: write
+      id-token: write
+    env:
+      VERSION: ${{ needs.build.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download core dist
+        uses: actions/download-artifact@v4
+        with:
+          name: core-dist-${{ env.VERSION }}
+          path: packages/core/dist/
+
+      - name: Download updated package.json files
+        uses: actions/download-artifact@v4
+        with:
+          name: package-json-files-${{ env.VERSION }}
+
+      - name: Restore package.json files to correct paths
+        run: |
+          # The artifact is flat — restore each one
+          cp package.json packages/core/package.json 2>/dev/null || true
+          # Artifacts upload paths are preserved relative to repo root, so just verify
+          echo "Core package.json version: $(node -p "require('./packages/core/package.json').version")"
+
+      - name: Check if version already published
+        id: check_core
+        run: |
+          if npm view @content-renderer/core@${{ env.VERSION }} version 2>/dev/null; then
+            echo "already_published=true" >> $GITHUB_OUTPUT
+            echo "⚠️  @content-renderer/core@${{ env.VERSION }} already exists on npm — skipping."
+          else
+            echo "already_published=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish @content-renderer/core to npm
+        if: steps.check_core.outputs.already_published == 'false'
+        run: |
+          cd packages/core
+          npm publish --access public --provenance
+          echo "✅ Published @content-renderer/core@${{ env.VERSION }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # ─── Step 4: Publish react-and-native ────────────────────────────────────────
+  publish-react-and-native:
+    name: Publish @content-renderer/react-and-native
+    runs-on: ubuntu-latest
+    needs: [build, publish-core]
+    if: ${{ github.event.inputs.dry_run != 'true' }}
+    permissions:
+      contents: write
+      id-token: write
+    env:
+      VERSION: ${{ needs.build.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download react-and-native dist
+        uses: actions/download-artifact@v4
+        with:
+          name: react-and-native-dist-${{ env.VERSION }}
+          path: packages/react-and-native/dist/
+
+      - name: Download updated package.json files
+        uses: actions/download-artifact@v4
+        with:
+          name: package-json-files-${{ env.VERSION }}
+
+      - name: Check if version already published
+        id: check_ran
+        run: |
+          if npm view @content-renderer/react-and-native@${{ env.VERSION }} version 2>/dev/null; then
+            echo "already_published=true" >> $GITHUB_OUTPUT
+            echo "⚠️  @content-renderer/react-and-native@${{ env.VERSION }} already exists on npm — skipping."
+          else
+            echo "already_published=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish @content-renderer/react-and-native to npm
+        if: steps.check_ran.outputs.already_published == 'false'
+        run: |
+          cd packages/react-and-native
+          npm publish --access public --provenance
+          echo "✅ Published @content-renderer/react-and-native@${{ env.VERSION }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # ─── Step 5: Commit version bumps & tag ─────────────────────────────────────
+  commit-and-tag:
+    name: Commit Version Bumps
+    runs-on: ubuntu-latest
+    needs: [build, publish-core, publish-react-and-native]
+    if: ${{ github.event.inputs.dry_run != 'true' }}
+    permissions:
+      contents: write
+    env:
+      VERSION: ${{ needs.build.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download updated package.json files
+        uses: actions/download-artifact@v4
+        with:
+          name: package-json-files-${{ env.VERSION }}
+
+      - name: Commit and push version changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add package.json packages/core/package.json packages/react-and-native/package.json
+          git diff --staged --quiet || git commit -m "chore: release v${{ env.VERSION }} [skip ci]"
+          git push
+
+      - name: Create release summary
+        run: |
+          echo "## 🚀 Release v${{ env.VERSION }} Published" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Package | Version | npm |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|---------|-----|" >> $GITHUB_STEP_SUMMARY
+          echo "| \`@content-renderer/core\` | v${{ env.VERSION }} | [View](https://www.npmjs.com/package/@content-renderer/core/v/${{ env.VERSION }}) |" >> $GITHUB_STEP_SUMMARY
+          echo "| \`@content-renderer/react-and-native\` | v${{ env.VERSION }} | [View](https://www.npmjs.com/package/@content-renderer/react-and-native/v/${{ env.VERSION }}) |" >> $GITHUB_STEP_SUMMARY
+
+  # ─── Step 6: Build web example (post-publish smoke test) ─────────────────────
+  smoke-test:
+    name: Smoke Test (Web Example Build)
+    runs-on: ubuntu-latest
+    needs: publish-react-and-native
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install from npm (not workspace)
+        working-directory: apps/web-example
+        run: |
+          npm install --no-save \
+            @content-renderer/core@${{ needs.build.outputs.version }} \
+            @content-renderer/react-and-native@${{ needs.build.outputs.version }}
+
+      - name: Build web example
+        working-directory: apps/web-example
+        run: npm run build
