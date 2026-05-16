@@ -12,7 +12,7 @@
     "build:core": "npm run build --workspace=@content-renderer/core",
     "build:react": "npm run build --workspace=@content-renderer/react-and-native",
     "build:all": "node -e \"const{execSync}=require('child_process');execSync('npm run build',{cwd:'packages/core',stdio:'inherit'});execSync('npm run build',{cwd:'packages/react-and-native',stdio:'inherit'})\"",
-    "typecheck": "npm run typecheck --workspaces --if-present",
+    "typecheck": "npm run build:core && npm run typecheck --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
     "dev:web": "npm run dev --workspace=content-renderer-web-example",
     "dev:native": "npm start --workspace=content-renderer-native-example",

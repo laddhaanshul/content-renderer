@@ -159,7 +159,7 @@ export const PHPRenderer: React.FC<PHPRendererInternalProps> = ({
         className: className,
         style: {
           fontFamily: '"SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
-          ...(style || {}),
+          ...((style as React.CSSProperties) || {}),
         },
         maxHeight: (rest as any).maxHeight,
         testID: testID || 'content-renderer-php',

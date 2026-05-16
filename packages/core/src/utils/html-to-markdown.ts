@@ -105,7 +105,7 @@ function convertCodeBlocks(html: string, opts: Required<HTMLToMarkdownOptions>):
       if (opts.codeBlockStyle === 'fenced') {
         return `\n\n${opts.fence}${lang}\n${decoded.trimEnd()}\n${opts.fence}\n\n`;
       }
-      return `\n\n${decoded.trimEnd().split('\n').map(l => '    ' + l).join('\n')}\n\n`;
+      return `\n\n${decoded.trimEnd().split('\n').map((l: string) => '    ' + l).join('\n')}\n\n`;
     });
   html = html.replace(/<pre[^>]*><code[^>]*>([\s\S]*?)<\/code><\/pre>/gi,
     (_, code) => {
@@ -113,7 +113,7 @@ function convertCodeBlocks(html: string, opts: Required<HTMLToMarkdownOptions>):
       if (opts.codeBlockStyle === 'fenced') {
         return `\n\n${opts.fence}\n${decoded.trimEnd()}\n${opts.fence}\n\n`;
       }
-      return `\n\n${decoded.trimEnd().split('\n').map(l => '    ' + l).join('\n')}\n\n`;
+      return `\n\n${decoded.trimEnd().split('\n').map((l: string) => '    ' + l).join('\n')}\n\n`;
     });
   // Standalone <pre>
   html = html.replace(/<pre[^>]*>([\s\S]*?)<\/pre>/gi,
@@ -122,7 +122,7 @@ function convertCodeBlocks(html: string, opts: Required<HTMLToMarkdownOptions>):
       if (opts.codeBlockStyle === 'fenced') {
         return `\n\n${opts.fence}\n${decoded.trimEnd()}\n${opts.fence}\n\n`;
       }
-      return `\n\n${decoded.trimEnd().split('\n').map(l => '    ' + l).join('\n')}\n\n`;
+      return `\n\n${decoded.trimEnd().split('\n').map((l: string) => '    ' + l).join('\n')}\n\n`;
     });
   return html;
 }
@@ -134,7 +134,7 @@ function convertBlockquotes(html: string): string {
       .replace(/<br\s*\/?>/gi, '\n> ')
       .replace(/<[^>]+>/g, '')
       .trim();
-    return `\n\n${text.split('\n').map(l => `> ${l}`).join('\n')}\n\n`;
+    return `\n\n${text.split('\n').map((l: string) => `> ${l}`).join('\n')}\n\n`;
   });
 }
 
@@ -282,7 +282,7 @@ function cleanupWhitespace(text: string): string {
   // Remove excessive blank lines (more than 2)
   text = text.replace(/\n{3,}/g, '\n\n');
   // Remove trailing whitespace on lines
-  text = text.split('\n').map(l => l.trimEnd()).join('\n');
+  text = text.split('\n').map((l: string) => l.trimEnd()).join('\n');
   return text;
 }
 
