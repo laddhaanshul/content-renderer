@@ -83,11 +83,7 @@
     }
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@laddhaanshul/content-renderer-core": "1.0.2",
-=======
     "@laddhaanshul/content-renderer-core": "1.0.3",
->>>>>>> 00c18bba9f6593f54d1118cdbb02da6226ab4b57
     "entities": "^4.5.0",
     "htmlparser2": "^9.0.0"
   },

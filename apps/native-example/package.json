@@ -11,8 +11,8 @@
     "build": "echo 'Native example does not require a build step. Use start instead.'"
   },
   "dependencies": {
-    "@laddhaanshul/content-renderer-core": "1.0.0",
-    "@laddhaanshul/content-renderer": "1.0.0",
+    "@laddhaanshul/content-renderer-core": "*",
+    "@laddhaanshul/content-renderer": "*",
     "@react-navigation/drawer": "^6.6.15",
     "expo": "~50.0.0",
     "expo-linking": "~6.2.2",

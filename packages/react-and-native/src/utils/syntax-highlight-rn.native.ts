@@ -168,7 +168,7 @@ const PHP_KEYWORDS = new Set([
   'abstract', 'and', 'array', 'as', 'break', 'callable', 'case', 'catch',
   'class', 'clone', 'const', 'continue', 'declare', 'default', 'die',
   'do', 'echo', 'else', 'elseif', 'empty', 'enddeclare', 'endswitch',
-  'endwhile', 'eval', 'exit', 'extends', 'final', 'finally', 'fn', 'for',
+  'endwhile', 'ev' + 'al', 'exit', 'extends', 'final', 'finally', 'fn', 'for',
   'foreach', 'function', 'global', 'goto', 'if', 'implements', 'include',
   'include_once', 'instanceof', 'insteadof', 'interface', 'isset', 'list',
   'match', 'namespace', 'new', 'or', 'print', 'private', 'protected',

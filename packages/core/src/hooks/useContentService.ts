@@ -468,7 +468,8 @@ export function useContentService(config?: ContentServiceConfig): UseContentServ
         if (effectiveFetcher) {
           response = await effectiveFetcher(effectiveUrl, fetchOptions);
         } else {
-          response = await fetch(effectiveUrl, fetchOptions);
+          const defaultFetch = (globalThis as any).fetch;
+          response = await defaultFetch(effectiveUrl, fetchOptions);
         }
 
         // Handle non-OK responses

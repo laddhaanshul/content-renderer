@@ -11,3 +11,4 @@ tsconfig*.json
 coverage/
 __tests__/
 __mocks__/
+__benchmarks__/
