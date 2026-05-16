@@ -1,6 +1,6 @@
 {
   "name": "content-renderer-monorepo",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "description": "Monorepo for @laddhaanshul/content-renderer - Universal content rendering for React and React Native",
   "workspaces": [
