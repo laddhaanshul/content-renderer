@@ -81,8 +81,8 @@ export {
 } from './turbo-modules.native';
 
 export type {
-  ParsedContent,
-  ValidationResult,
+  NativeParsedContent,
+  NativeValidationResult,
   ContentRendererNativeComponentSpec,
   Spec as TurboModuleSpec,
   ArchitectureInfo,

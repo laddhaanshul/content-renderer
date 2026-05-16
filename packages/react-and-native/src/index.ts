@@ -18,6 +18,7 @@ export {
   CSSRenderer,
   ErrorBoundary,
   ContentServiceRenderer,
+  StreamingContentRenderer,
 } from './components';
 
 export { default } from './components';
@@ -223,6 +224,7 @@ export {
   formatCSS,
   formatXML,
   prettify,
+  updateNestedValue,
   convertToJSON,
   convertToXML,
 } from '@laddhaanshul/content-renderer-core';

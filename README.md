@@ -476,7 +476,7 @@ The foundational package providing parsing logic and utilities.
 
 The UI package with platform-aware components for Web and Mobile.
 
-- **Components:** `ContentRenderer`, `HTMLRenderer`, `MarkdownRenderer`, `JSONRenderer`, `CodeRenderer`, `DiffRenderer`, `VirtualizedCodeRenderer`, `ContentServiceRenderer`.
+- **Components:** `ContentRenderer`, `HTMLRenderer`, `MarkdownRenderer`, `JSONRenderer`, `CodeRenderer`, `DiffRenderer`, `VirtualizedCodeRenderer`, `ContentServiceRenderer`, `StreamingContentRenderer`.
 - **Hooks:** `useContentParser`, `useExtract`, `useTheme`, `useContentService`.
 - **Animations:** `useFadeIn`, `useSlideIn`, `useTypewriter`, `useThemeTransition`, `useScrollAnimation`, `animateNumber`.
 - **Platform Utilities:** `highlightInWorker`, `styleStringToRNStyle`, `HTML_TO_RN_MAP`, `queryPath`.
@@ -658,6 +658,19 @@ Drop-in component to fetch content from a URL and render it using ContentRendere
 | `onLoadError` | `(error) => void` | — | Error callback |
 | `fetchKey` | `string \| number` | — | Refetch trigger key |
 | `fetchDebounce` | `number` | `0` | Refetch debounce (ms) |
+
+#### StreamingContentRenderer
+
+Incremental rendering component for processing chunks of HTML or AST nodes in real-time. Ideal for rendering LLM/AI streaming responses.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `stream` | `ReadableStream<Uint8Array> \| any` | — | Stream yielding HTML chunks |
+| `astStream` | `ReadableStream<any> \| any` | — | Stream yielding pre-parsed AST nodes |
+| `fallback` | `ReactNode` | — | Fallback component to show before stream starts |
+| `onStreamStart` | `() => void` | — | Callback triggered when stream starts |
+| `onStreamComplete` | `() => void` | — | Callback triggered when stream completes |
+| `onStreamError` | `(error) => void` | — | Callback triggered on stream error |
 
 ---
 

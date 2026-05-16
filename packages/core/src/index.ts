@@ -68,6 +68,7 @@ export {
   formatJSON,
   formatXML,
   prettify,
+  updateNestedValue,
   convertToJSON,
   convertToXML,
   convertToMarkdown,
@@ -170,6 +171,10 @@ export {
   createImageProxyPlugin,
   createEmojiPlugin,
   createHeadingAnchorPlugin,
+} from './plugins';
+export {
+  createMermaidPlugin,
+  createKaTeXPlugin,
 } from './plugins';
 
 // ==========================================

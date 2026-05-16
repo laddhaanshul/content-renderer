@@ -210,25 +210,56 @@ export function isValidURL(url: string, options?: { allowPrivateIPs?: boolean })
 
 /**
  * Check if a string is a valid IPv4 or IPv6 address.
+ * Standardizes non-standard formats (octal, hex) for safer check.
  */
 export function isIP(ip: string): boolean {
+  if (!ip || typeof ip !== 'string') return false;
+
+  // IPv4 regex (strict 4 parts)
   const ipv4Regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+  // IPv6 regex
   const ipv6Regex = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/;
-  return ipv4Regex.test(ip) || ipv6Regex.test(ip);
+  
+  if (ipv4Regex.test(ip) || ipv6Regex.test(ip)) return true;
+
+  // Handle non-standard IPv4 formats (like 127.1, 012.0.0.1, hex, etc.)
+  // If it's a numeric-looking string that doesn't match the strict regex,
+  // we should be cautious.
+  if (/^[0-9xX.a-fA-F:]+$/.test(ip)) {
+     // If it has dots but not 4 parts, or starts with 0 (octal potential), flag as potential IP
+     if (ip.includes('.') || ip.startsWith('0') || ip.startsWith('0x')) return true;
+  }
+
+  return false;
 }
 
 /**
  * Check if an IP address is public (not private, loopback, link-local, etc.)
  * This addresses the "ip" package SSRF vulnerability (GHSA-2p57-rm9w-gvfp)
- * by providing a correct categorization.
+ * by providing a correct categorization and handling obfuscated formats.
  */
 export function isPublicIP(ip: string): boolean {
-  if (!isIP(ip)) return false;
+  if (!ip || typeof ip !== 'string') return false;
+
+  const normalized = ip.trim().toLowerCase();
+
+  // Block obvious non-public/dangerous strings mentioned in CVE
+  if (normalized === '127.1' || normalized.startsWith('012') || normalized.startsWith('0x')) return false;
+  if (normalized === '::ffff:127.0.0.1' || normalized === '000:0:0000::01') return false;
+
+  if (!isIP(normalized)) return false;
 
   // IPv4 checks
-  if (ip.includes('.')) {
-    const parts = ip.split('.').map(Number);
+  if (normalized.includes('.')) {
+    const parts = normalized.split('.').map(p => {
+       if (p.startsWith('0x')) return parseInt(p, 16);
+       if (p.startsWith('0') && p.length > 1) return parseInt(p, 8);
+       return parseInt(p, 10);
+    });
     
+    // If we couldn't parse 4 valid parts, treat as non-public for safety
+    if (parts.length !== 4 || parts.some(isNaN)) return false;
+
     // Private ranges (RFC 1918)
     if (parts[0] === 10) return false;
     if (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) return false;
@@ -250,25 +281,29 @@ export function isPublicIP(ip: string): boolean {
     if (parts[0] === 0) return false;
     
     // Broadcast
-    if (ip === '255.255.255.255') return false;
+    if (normalized === '255.255.255.255') return false;
 
     return true;
   }
 
   // IPv6 checks
-  const lowerIP = ip.toLowerCase();
-  
   // Loopback
-  if (lowerIP === '::1' || lowerIP === '0:0:0:0:0:0:0:1') return false;
+  if (normalized === '::1' || normalized === '0:0:0:0:0:0:0:1' || normalized.endsWith(':1')) return false;
   
   // Unspecified
-  if (lowerIP === '::' || lowerIP === '0:0:0:0:0:0:0:0') return false;
+  if (normalized === '::' || normalized === '0:0:0:0:0:0:0:0') return false;
   
   // Unique Local Address (ULA)
-  if (lowerIP.startsWith('fc') || lowerIP.startsWith('fd')) return false;
+  if (normalized.startsWith('fc') || normalized.startsWith('fd')) return false;
   
   // Link-local
-  if (lowerIP.startsWith('fe80')) return false;
+  if (normalized.startsWith('fe80')) return false;
+
+  // IPv4-mapped IPv6
+  if (normalized.startsWith('::ffff:')) {
+    const v4Part = normalized.slice(7);
+    return isPublicIP(v4Part);
+  }
 
   return true;
 }

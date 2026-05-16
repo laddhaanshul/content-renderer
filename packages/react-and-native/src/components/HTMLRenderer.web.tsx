@@ -20,7 +20,9 @@ export type HTMLAlterer = (node: HTMLNode) => HTMLNode | null;
 
 export interface HTMLRendererProps {
   /** Raw HTML string to render */
-  html: string;
+  html?: string;
+  /** Pre-parsed AST nodes (skips parsing if provided) */
+  ast?: any;
   /** Custom component overrides per tag name */
   components?: Record<string, React.ComponentType<Record<string, unknown>>>;
   /** Click handler for anchor tags */
@@ -549,6 +551,7 @@ const DEFAULT_STYLES: React.CSSProperties = {
 
 export const HTMLRenderer: React.FC<HTMLRendererProps> = ({
   html,
+  ast,
   components,
   onLinkClick,
   onFormSubmit,
@@ -573,13 +576,14 @@ export const HTMLRenderer: React.FC<HTMLRendererProps> = ({
   const scopeId = useMemo(() => `cr-${generateScopeId()}`, []);
 
   const rawParsedHTML = useMemo((): HTMLNode => {
+    if (ast) return ast;
     if (!html || typeof html !== 'string') return { type: 'root', children: [] };
     try { return parseHTML(html); }
     catch (error) {
       if (process.env.NODE_ENV !== 'production') console.error('[HTMLRenderer] Failed to parse HTML:', error);
       return { type: 'root', children: [] };
     }
-  }, [html]);
+  }, [html, ast]);
 
   // Extract OG meta tags (Gap #17)
   useMemo(() => {
@@ -618,9 +622,9 @@ export const HTMLRenderer: React.FC<HTMLRendererProps> = ({
   }, [alteredHTML, sanitize]);
 
   const rendererProps: HTMLRendererProps = useMemo(() => ({
-    html: html || '', components, onLinkClick, onFormSubmit, sanitize,
+    html: html || '', ast, components, onLinkClick, onFormSubmit, sanitize,
     renderComments, allowDangerousHTML, transform, alterers, idsStyles, onMetaExtracted,
-  }), [components, onLinkClick, onFormSubmit, sanitize, renderComments, allowDangerousHTML, transform, alterers, idsStyles, onMetaExtracted]);
+  }), [html, ast, components, onLinkClick, onFormSubmit, sanitize, renderComments, allowDangerousHTML, transform, alterers, idsStyles, onMetaExtracted]);
 
   const renderedContent = useMemo((): React.ReactNode => {
     resetKeyCounter();
@@ -628,7 +632,7 @@ export const HTMLRenderer: React.FC<HTMLRendererProps> = ({
     return parsedHTML.children.map(child => renderNode(child, rendererProps));
   }, [parsedHTML, rendererProps]);
 
-  if (!html || typeof html !== 'string') {
+  if (!ast && (!html || typeof html !== 'string')) {
     if (fallback) return <>{fallback}</>;
     return null;
   }

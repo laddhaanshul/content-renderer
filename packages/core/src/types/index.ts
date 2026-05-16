@@ -634,6 +634,8 @@ export interface CodeRendererProps extends BaseRendererProps {
 }
 
 export interface JSONRendererProps extends BaseRendererProps {
+  /** JSON data to render (object, array, or string) */
+  json?: any;
   indent?: number;
   collapsed?: boolean;
   collapsible?: boolean;
@@ -643,6 +645,8 @@ export interface JSONRendererProps extends BaseRendererProps {
   copyToClipboard?: boolean;
   sortKeys?: boolean;
   filterKeys?: string[];
+  readonly?: boolean;
+  onEdit?: (path: string, newValue: any, oldValue: any) => void;
 }
 
 // @ts-ignore
@@ -655,6 +659,8 @@ export interface PHPRendererProps extends BaseRendererProps {
 }
 
 export interface MarkdownRendererProps extends BaseRendererProps {
+  /** Raw Markdown string (alias for content) */
+  markdown?: string;
   allowedTypes?: string[];
   disallowedTypes?: string[];
   unwrapDisallowed?: boolean;

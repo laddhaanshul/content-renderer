@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { getLocaleDirection } from '@laddhaanshul/content-renderer-core';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -39,6 +40,12 @@ export interface JSONRendererProps {
   includeKeys?: string[];
   /** Custom CSS class prefix */
   classPrefix?: string;
+  /** Whether the JSON is read-only (default: true) */
+  readonly?: boolean;
+  /** Callback when a value is edited */
+  onEdit?: (path: string, newValue: unknown, oldValue: unknown) => void;
+  /** Locale for RTL detection (e.g. 'ar', 'he') */
+  locale?: string;
 }
 
 interface ThemeConfig {
@@ -219,6 +226,9 @@ interface TreeNodeProps {
   searchTerm: string;
   theme: ThemeConfig;
   indent: number;
+  readonly: boolean;
+  onEdit?: (path: string, newValue: unknown, oldValue: unknown) => void;
+  isRTL?: boolean;
 }
 
 const TreeNode: React.FC<TreeNodeProps> = React.memo(({
@@ -237,6 +247,9 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({
   searchTerm,
   theme,
   indent,
+  readonly,
+  onEdit,
+  isRTL,
 }) => {
   const [collapsed, setCollapsed] = useState(defaultCollapsed);
   const type = getType(value);
@@ -263,8 +276,9 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({
   if (!shouldRender) return null;
 
   if (depth > maxDepth) {
+    const paddingStyle = isRTL ? { paddingRight: `${depth * indent}px` } : { paddingLeft: `${depth * indent}px` };
     return (
-      <div style={{ paddingLeft: `${depth * indent}px`, display: 'flex', alignItems: 'center', gap: '4px' }}>
+      <div style={{ ...paddingStyle, display: 'flex', alignItems: 'center', gap: '4px' }}>
         {keyName !== null && (
           <span style={{ color: theme.keyColor }}>"{keyName}"</span>
         )}
@@ -278,10 +292,11 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({
 
   // Primitive values
   if (type !== 'object' && type !== 'array') {
+    const paddingStyle = isRTL ? { paddingRight: `${depth * indent}px` } : { paddingLeft: `${depth * indent}px` };
     return (
       <div
         style={{
-          paddingLeft: `${depth * indent}px`,
+          ...paddingStyle,
           display: 'flex',
           alignItems: 'center',
           gap: '4px',
@@ -304,9 +319,38 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({
             <span style={{ color: theme.braceColor }}>: </span>
           </>
         )}
-        <span style={{ color: valueColor(type, theme) }}>
-          {formatPrimitive(value)}
-        </span>
+        {!readonly ? (
+          <input
+            type="text"
+            defaultValue={type === 'string' ? String(value) : formatPrimitive(value)}
+            onBlur={(e) => {
+              const newVal = e.target.value;
+              let typedVal: unknown = newVal;
+              if (type === 'number') typedVal = Number(newVal);
+              if (type === 'boolean') typedVal = newVal === 'true';
+              if (type === 'null') typedVal = null;
+              
+              if (typedVal !== value && onEdit) {
+                onEdit(currentPath, typedVal, value);
+              }
+            }}
+            style={{
+              backgroundColor: 'transparent',
+              border: 'none',
+              borderBottom: `1px solid ${theme.border}`,
+              color: valueColor(type, theme),
+              fontFamily: 'inherit',
+              fontSize: 'inherit',
+              padding: '0 2px',
+              outline: 'none',
+              minWidth: '50px',
+            }}
+          />
+        ) : (
+          <span style={{ color: valueColor(type, theme) }}>
+            {formatPrimitive(value)}
+          </span>
+        )}
         {showTypes && (
           <span
             style={{
@@ -353,8 +397,10 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({
   const openBrace = isArray ? '[' : '{';
   const closeBrace = isArray ? ']' : '}';
 
+  const paddingStyle = isRTL ? { paddingRight: `${depth * indent}px` } : { paddingLeft: `${depth * indent}px` };
+
   return (
-    <div style={{ paddingLeft: `${depth * indent}px` }}>
+    <div style={paddingStyle}>
       {/* Collapsed / Expandable header */}
       <div
         style={{
@@ -374,7 +420,15 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({
         }}
       >
         {/* Expand/collapse icon */}
-        <span style={{ width: '14px', height: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <span style={{ 
+          width: '14px', 
+          height: '14px', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          flexShrink: 0,
+          transform: isRTL && !isOpen ? 'rotate(180deg)' : 'none'
+        }}>
           {isOpen ? <ChevronDown color={theme.iconExpanded} /> : <ChevronRight color={theme.iconCollapsed} />}
         </span>
 
@@ -428,10 +482,13 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({
               searchTerm={searchTerm}
               theme={theme}
               indent={indent}
+              readonly={readonly}
+              onEdit={onEdit}
+              isRTL={isRTL}
             />
           ))}
           {/* Close brace */}
-          <div style={{ paddingLeft: `${(depth + 1) * indent - depth * indent}px`, color: theme.braceColor }}>
+          <div style={{ color: theme.braceColor }}>
             {closeBrace}
           </div>
         </>
@@ -514,7 +571,12 @@ export const JSONRenderer: React.FC<JSONRendererProps> = ({
   excludeKeys,
   includeKeys,
   classPrefix = 'cr',
+  readonly = true,
+  onEdit,
+  locale = 'en',
 }) => {
+  const direction = useMemo(() => getLocaleDirection(locale), [locale]);
+  const isRTL = direction === 'rtl';
   const [searchTerm, setSearchTerm] = useState('');
   const [expanded, setExpanded] = useState(true);
   const { copied, copyToClipboard } = useClipboard();
@@ -605,6 +667,7 @@ export const JSONRenderer: React.FC<JSONRendererProps> = ({
   return (
     <div
       className={className}
+      dir={direction}
       style={{
         border: `1px solid ${themeConfig.border}`,
         borderRadius: '8px',
@@ -614,6 +677,7 @@ export const JSONRenderer: React.FC<JSONRendererProps> = ({
         fontSize: '13px',
         lineHeight: '1.6',
         color: themeConfig.text,
+        textAlign: isRTL ? 'right' : 'left',
         ...style,
       }}
       data-testid="content-renderer-json"
@@ -728,6 +792,9 @@ export const JSONRenderer: React.FC<JSONRendererProps> = ({
             searchTerm={searchTerm}
             theme={themeConfig}
             indent={indent * 5}
+            readonly={readonly}
+            onEdit={onEdit}
+            isRTL={isRTL}
           />
         </div>
       )}

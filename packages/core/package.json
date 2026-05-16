@@ -58,12 +58,16 @@
     "typescript",
     "plugin-system",
     "accessibility",
-    "pdf"
+    "pdf",
+    "llm-streaming",
+    "real-time",
+    "generative-ai",
+    "streaming"
   ],
   "license": "MIT",
   "dependencies": {
     "css-tree": "^2.3.1",
-    "entities": "6.0.0",
+    "entities": "7.0.0",
     "htmlparser2": "10.0.0"
   },
   "devDependencies": {

@@ -30,7 +30,9 @@ import { lightNativeTheme, darkNativeTheme, type NativeTheme } from '../themes/n
 
 export interface CSSRendererProps {
   /** CSS source string. */
-  css: string;
+  css?: string;
+  /** Alias for css */
+  content?: string;
   /** Use dark theme. Default: false. */
   dark?: boolean;
   /** Custom theme overrides. */
@@ -207,6 +209,7 @@ function parseCSSRules(css: string): CSSRule[] {
 
 const CSSRenderer: React.FC<CSSRendererProps> = ({
   css,
+  content,
   dark = false,
   theme: themeOverride,
   syntaxTheme: customSyntaxTheme,
@@ -217,6 +220,7 @@ const CSSRenderer: React.FC<CSSRendererProps> = ({
   accessible,
   accessibilityLabel,
 }) => {
+  const cssValue = css ?? content ?? '';
   const [expandedMediaQueries, setExpandedMediaQueries] = useState<Set<number>>(() => new Set([0, 1, 2]));
 
   const resolvedTheme = useMemo<NativeTheme>(() => {
@@ -239,19 +243,19 @@ const CSSRenderer: React.FC<CSSRendererProps> = ({
   // Use line-based highlighting for simple rendering
   const highlighted = useMemo(() => {
     try {
-      return highlightCode(css || '', 'css', resolvedSyntaxTheme);
+      return highlightCode(cssValue || '', 'css', resolvedSyntaxTheme);
     } catch {
-      return css.split('\n').map(line => [{ text: line, color: resolvedSyntaxTheme.plain }]);
+      return cssValue.split('\n').map(line => [{ text: line, color: resolvedSyntaxTheme.plain }]);
     }
-  }, [css, resolvedSyntaxTheme]);
+  }, [cssValue, resolvedSyntaxTheme]);
 
   const rules = useMemo(() => {
     try {
-      return parseCSSRules(css || '');
+      return parseCSSRules(cssValue || '');
     } catch {
-      return [];
+      return [{ type: 'rule' as const, selector: 'Parsing Error', properties: [] }];
     }
-  }, [css]);
+  }, [cssValue]);
 
   const handleToggleMedia = useCallback((idx: number) => {
     setExpandedMediaQueries(prev => {
@@ -265,14 +269,14 @@ const CSSRenderer: React.FC<CSSRendererProps> = ({
   const handleCopy = useCallback(async () => {
     try {
       if (Platform.OS === 'web') {
-        await navigator.clipboard.writeText(css);
+        await navigator.clipboard.writeText(cssValue);
       } else {
-        await Share.share({ message: css });
+        await Share.share({ message: cssValue });
       }
     } catch {
       // Clipboard not available
     }
-  }, [css]);
+  }, [cssValue]);
 
   return (
     <View

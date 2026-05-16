@@ -258,8 +258,13 @@ const CSS_PROP_MAP: Record<string, string> = {
   'font-variant': 'fontVariant',
   'font-weight': 'fontWeight',
   'gap': 'gap',
+  'grid-gap': 'gap',
+  'grid-row-gap': 'rowGap',
+  'grid-column-gap': 'columnGap',
   'height': 'height',
   'justify-content': 'justifyContent',
+  'justify-items': 'justifyContent',
+  'justify-self': 'justifySelf',
   'left': 'left',
   'letter-spacing': 'letterSpacing',
   'line-height': 'lineHeight',
@@ -467,9 +472,8 @@ function parseCSSValue(
   // Display values
   if (rnProp === 'display') {
     if (lower === 'block' || lower === 'inline') return 'flex';
-    if (lower === 'flex') return 'flex';
-    if (lower === 'inline-block') return 'flex';
-    if (lower === 'inline-flex') return 'flex';
+    if (lower === 'flex' || lower === 'grid') return 'flex';
+    if (lower === 'inline-block' || lower === 'inline-flex' || lower === 'inline-grid') return 'flex';
     return lower;
   }
 

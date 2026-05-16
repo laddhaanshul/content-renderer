@@ -190,7 +190,6 @@ export const ContentRenderer: React.FC<ContentRendererProps> = React.memo(({
         return (
           <JSONRenderer
             json={content}
-            data={content}
             theme={(theme as any)?.codeBlock ? 'dark' : 'light'}
             showCopyButton
             searchable

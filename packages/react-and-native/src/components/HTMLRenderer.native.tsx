@@ -70,7 +70,8 @@ try {
 export type NativeAlterer = (node: HTMLNode) => HTMLNode | null;
 
 export interface HTMLRendererProps {
-  html: string;
+  html?: string;
+  ast?: any;
   baseUrl?: string;
   renderers?: Record<string, React.ComponentType<TagRendererProps>>;
   onLinkPress?: (url: string) => void;
@@ -970,7 +971,7 @@ function extractTextContent(node: HTMLNode): string {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 const HTMLRenderer: React.FC<HTMLRendererProps> = ({
-  html, baseUrl, renderers, onLinkPress, onImageError,
+  html, ast, baseUrl, renderers, onLinkPress, onImageError,
   resolveImageSource: resolveImageSourceProp, theme: themeOverride,
   style, testID, accessibilityLabel, accessible,
   maxDepth = 50, ignoreTags, renderRawContent = false,
@@ -996,9 +997,10 @@ const HTMLRenderer: React.FC<HTMLRendererProps> = ({
   }, [ignoreTags, renderRawContent]);
 
   const parseResult = useMemo(() => {
+    if (ast) return ast;
     try { return parseHTMLToTree(html || ''); }
     catch { return { type: 'root' as const, children: [] }; }
-  }, [html]);
+  }, [html, ast]);
 
   // Apply alterers (Gap #13)
   const alteredTree = useMemo(() => {
@@ -1049,3 +1051,4 @@ const HTMLRenderer: React.FC<HTMLRendererProps> = ({
 HTMLRenderer.displayName = 'HTMLRenderer';
 
 export default HTMLRenderer;
+export { HTMLRenderer };

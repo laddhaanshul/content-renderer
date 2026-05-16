@@ -11,6 +11,8 @@ export { default as XMLRenderer } from './XMLRenderer.native';
 export { default as CSSRenderer } from './CSSRenderer.native';
 export { default as ErrorBoundary } from './ErrorBoundary.native';
 export { default as ContentServiceRenderer } from './ContentServiceRenderer.native';
+import StreamingContentRenderer from './StreamingContentRenderer.native';
+export { StreamingContentRenderer };
 
 export { default } from './ContentRenderer.native';
 

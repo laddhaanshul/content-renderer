@@ -308,8 +308,7 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({
         }
         return (
           <JSONRenderer
-            data={parsed}
-            json={typeof parsed === 'string' ? parsed : JSON.stringify(parsed)}
+            json={parsed}
             dark={dark}
             theme={resolvedTheme as any}
             showCopyButton={true}

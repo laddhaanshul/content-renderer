@@ -41,7 +41,9 @@ import { lightNativeTheme, darkNativeTheme, type NativeTheme } from '../themes/n
 
 export interface MarkdownRendererProps {
   /** Raw Markdown string. */
-  markdown: string;
+  markdown?: string;
+  /** Content string (alias for markdown). */
+  content?: string;
   /** Called when a link is pressed. */
   onLinkPress?: (url: string) => void;
   /** Use dark theme. Default: false. */
@@ -815,6 +817,7 @@ function renderTable(rows: string[][], hasHeader: boolean, theme: NativeTheme): 
 
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
   markdown,
+  content,
   onLinkPress,
   dark = false,
   theme: themeOverride,
@@ -836,13 +839,15 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
     };
   }, [dark, themeOverride]);
 
+  const source = markdown || content || '';
+
   const blocks = useMemo(() => {
     try {
-      return parseMarkdown(markdown || '');
+      return parseMarkdown(source);
     } catch {
-      return [{ type: 'paragraph' as const, content: markdown || '' }];
+      return [{ type: 'paragraph' as const, content: source }];
     }
-  }, [markdown]);
+  }, [source]);
 
   const mergedFeatures = useMemo(() => ({
     headings: true,

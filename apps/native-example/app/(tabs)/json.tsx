@@ -52,6 +52,7 @@ export default function JSONScreen() {
   const [activeSample, setActiveSample] = useState('basic');
   const [sortKeys, setSortKeys] = useState(false);
   const [dark, setDark] = useState(false);
+  const [readonly, setReadonly] = useState(false);
 
   const sample = samples[activeSample];
 
@@ -75,23 +76,29 @@ export default function JSONScreen() {
       {/* Controls */}
       <View style={styles.controls}>
         <View style={styles.switchRow}>
-          <Text style={styles.switchLabel}>Sort Keys</Text>
+          <Text style={styles.switchLabel}>Sort</Text>
           <Switch value={sortKeys} onValueChange={setSortKeys} trackColor={{ false: '#ddd', true: '#6c63ff' }} />
         </View>
         <View style={styles.switchRow}>
           <Text style={styles.switchLabel}>Dark</Text>
           <Switch value={dark} onValueChange={setDark} trackColor={{ false: '#ddd', true: '#6c63ff' }} />
         </View>
+        <View style={styles.switchRow}>
+          <Text style={styles.switchLabel}>Edit</Text>
+          <Switch value={!readonly} onValueChange={(val) => setReadonly(!val)} trackColor={{ false: '#ddd', true: '#6c63ff' }} />
+        </View>
       </View>
 
       {/* JSON Tree - uses actual library component */}
       <View style={styles.treeBox}>
         <JSONRenderer
-          data={sample.data}
+          json={sample.data}
           rootName="root"
           initialExpandDepth={2}
           sortKeys={sortKeys}
           dark={dark}
+          readonly={readonly}
+          onEdit={(path, next, prev) => console.log('Edit:', path, next)}
           showCopyButton={true}
           showTypes={true}
         />
@@ -103,10 +110,10 @@ export default function JSONScreen() {
         <Text style={styles.usageCode}>{`import { JSONRenderer } from '@laddhaanshul/content-renderer';
 
 <JSONRenderer
-  data={jsonObject}
-  initialExpandDepth={2}
+  json={jsonObject}
+  readonly={false}
+  onEdit={(path, value) => {}}
   sortKeys={${sortKeys}}
-  showCopyButton
   dark={${dark}}
 />`}</Text>
       </View>

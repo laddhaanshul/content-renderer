@@ -40,3 +40,8 @@ export {
   createHeadingAnchorPlugin,
   builtInPlugins,
 } from './built-in-plugins';
+
+export {
+  createMermaidPlugin,
+  createKaTeXPlugin,
+} from './ecosystem-plugins';

@@ -17,6 +17,7 @@ export {
   CSSRenderer,
   ErrorBoundary,
   ContentServiceRenderer,
+  StreamingContentRenderer,
 } from './components/index.native';
 
 export { default } from './components/index.native';

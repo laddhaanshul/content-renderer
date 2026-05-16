@@ -9,8 +9,10 @@ export { PHPRenderer } from './PHPRenderer';
 export { MarkdownRenderer } from './MarkdownRenderer';
 export { XMLRenderer } from './XMLRenderer';
 export { CSSRenderer } from './CSSRenderer';
-export { ErrorBoundary } from './ErrorBoundary';
-export { ContentServiceRenderer } from './ContentServiceRenderer';
+export { default as ErrorBoundary } from './ErrorBoundary';
+export { default as ContentServiceRenderer } from './ContentServiceRenderer';
+import StreamingContentRenderer from './StreamingContentRenderer';
+export { StreamingContentRenderer };
 
 // ─── Default Exports ────────────────────────────────────────────────────────
 export { default } from './ContentRenderer';

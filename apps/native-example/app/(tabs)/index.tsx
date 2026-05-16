@@ -9,6 +9,7 @@ import {
 import { useRouter } from 'expo-router';
 
 const features = [
+  { title: 'Streaming Content', description: 'Incremental rendering for real-time HTML and AST streams', route: '/streaming' },
   { title: 'HTML Renderer', description: 'Render HTML with <style> CSS, class selectors, media queries, SVG, media placeholders', route: '/html' },
   { title: 'JSON Renderer', description: 'Collapsible JSON tree with search, copy, and type display', route: '/json' },
   { title: 'Code Renderer', description: 'Syntax highlighting for 20+ languages with dark/light themes', route: '/code' },

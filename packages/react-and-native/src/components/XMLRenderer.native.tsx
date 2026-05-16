@@ -31,7 +31,9 @@ import { lightNativeTheme, darkNativeTheme, type NativeTheme } from '../themes/n
 
 export interface XMLRendererProps {
   /** XML string to render. */
-  xml: string;
+  xml?: string;
+  /** Alias for xml */
+  content?: string;
   /** Initial expanded depth. Default: 2. */
   initialExpandDepth?: number;
   /** Use dark theme. Default: false. */
@@ -391,6 +393,7 @@ const XMLNodeRenderer: React.FC<XMLNodeRendererProps> = ({
 
 const XMLRenderer: React.FC<XMLRendererProps> = ({
   xml,
+  content,
   initialExpandDepth = 2,
   dark = false,
   theme: themeOverride,
@@ -399,6 +402,7 @@ const XMLRenderer: React.FC<XMLRendererProps> = ({
   testID,
   accessible,
 }) => {
+  const xmlValue = xml ?? content ?? '';
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(() => {
     const paths = new Set<string>();
     function expand(nodes: XMLNode[], path: string, depth: number) {
@@ -411,7 +415,7 @@ const XMLRenderer: React.FC<XMLRendererProps> = ({
         }
       });
     }
-    const parsed = parseXML(xml);
+    const parsed = parseXML(xmlValue);
     expand(parsed, 'root', 0);
     return paths;
   });
@@ -428,11 +432,11 @@ const XMLRenderer: React.FC<XMLRendererProps> = ({
 
   const parsedNodes = useMemo(() => {
     try {
-      return parseXML(xml || '');
+      return parseXML(xmlValue || '');
     } catch {
-      return [{ type: 'text' as const, content: xml || '' }];
+      return [{ type: 'text' as const, content: xmlValue || '' }];
     }
-  }, [xml]);
+  }, [xmlValue]);
 
   const handleToggle = useCallback((path: string) => {
     setExpandedPaths(prev => {
@@ -449,14 +453,14 @@ const XMLRenderer: React.FC<XMLRendererProps> = ({
   const handleCopy = useCallback(async () => {
     try {
       if (Platform.OS === 'web') {
-        await navigator.clipboard.writeText(xml);
+        await navigator.clipboard.writeText(xmlValue);
       } else {
-        await Share.share({ message: xml });
+        await Share.share({ message: xmlValue });
       }
     } catch {
       // Clipboard not available
     }
-  }, [xml]);
+  }, [xmlValue]);
 
   return (
     <View

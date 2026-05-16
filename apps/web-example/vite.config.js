@@ -4,6 +4,7 @@ import path from 'path';
 export default defineConfig({
     plugins: [react()],
     resolve: {
+        extensions: ['.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.tsx', '.ts', '.jsx', '.js'],
         alias: {
             '@laddhaanshul/content-renderer': path.resolve(__dirname, '../../packages/react-and-native/src'),
             '@laddhaanshul/content-renderer-core': path.resolve(__dirname, '../../packages/core/src'),

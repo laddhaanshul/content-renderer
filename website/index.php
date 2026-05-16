@@ -52,6 +52,7 @@ $features = [
     ['icon' => '&#128640;', 'title' => 'SSR / Next.js', 'desc' => 'renderToString, renderToStaticMarkup, extractMetadataForSSR, generateHeadTags, generateStructuredData (JSON-LD), and environment detection.'],
     ['icon' => '&#128736;', 'title' => 'Error Recovery', 'desc' => 'Intelligent fallback strategies for HTML, JSON, Markdown, CSS, and XML errors with human-readable fix suggestions and recovery attempts.'],
     ['icon' => '&#127973;', 'title' => 'Content Service', 'desc' => 'Fetch content from APIs (AEM, headless CMS, REST) with auto-detection, 9 extraction strategies, caching, retry, and polling.'],
+    ['icon' => '&#9889;', 'title' => 'Real-Time Streaming', 'desc' => 'Render HTML or AST chunks dynamically in real-time. Ideal for generative AI, LLM text streams, or progressive page loads.'],
     ['icon' => '&#128230;', 'title' => 'Tree-Shaking Exports', 'desc' => 'Sub-path exports for parsers, utils, hooks, plugins, themes, and types. Import only what you need to keep bundles minimal.'],
     ['icon' => '&#128270;', 'title' => 'Content Extraction', 'desc' => 'Extract links, images, scripts, styles, meta tags, headings, tables, forms, lists, code blocks, SEO, OpenGraph, Twitter Cards, and more.']
 ];
@@ -80,6 +81,7 @@ $components = [
     ['name' => 'SVGRenderer', 'desc' => '21 SVG elements on native'],
     ['name' => 'ContentServiceRenderer', 'desc' => 'API content fetch & render'],
     ['name' => 'VirtualizedHTMLRenderer', 'desc' => 'Large document virtualization'],
+    ['name' => 'StreamingContentRenderer', 'desc' => 'Real-time incremental chunk rendering'],
 ];
 
 $parsers = [

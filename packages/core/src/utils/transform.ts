@@ -634,3 +634,36 @@ export function detectContentType(content: string): ContentType {
 
   return 'text';
 }
+
+/**
+ * Updates a value at a nested path in an object or array.
+ * Path format: "root.key.0.subkey"
+ * Returns a new object/array with the value updated (immutable).
+ */
+export function updateNestedValue(obj: any, path: string, newValue: any): any {
+  if (!path || path === 'root') return newValue;
+
+  const parts = path.startsWith('root.') ? path.slice(5).split('.') : path.split('.');
+  
+  function update(current: any, pathParts: string[]): any {
+    if (pathParts.length === 0) return newValue;
+
+    const [head, ...tail] = pathParts;
+    
+    if (Array.isArray(current)) {
+      const index = parseInt(head, 10);
+      const newArray = [...current];
+      newArray[index] = update(current[index], tail);
+      return newArray;
+    } else if (typeof current === 'object' && current !== null) {
+      return {
+        ...current,
+        [head]: update(current[head], tail),
+      };
+    }
+    
+    return current;
+  }
+
+  return update(obj, parts);
+}

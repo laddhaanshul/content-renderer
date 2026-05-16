@@ -8,7 +8,7 @@
 // ------------------------------------------
 
 /** Result from native parseContent call */
-export interface ParsedContent {
+export interface NativeParsedContent {
   type: string;
   content: string;
   parsed: string;    // JSON-serialized parsed structure
@@ -18,7 +18,7 @@ export interface ParsedContent {
 }
 
 /** Result from native validateContent call */
-export interface ValidationResult {
+export interface NativeValidationResult {
   valid: boolean;
   errors: string;    // JSON-serialized error array
   warnings: string;  // JSON-serialized warning array
@@ -55,7 +55,7 @@ export interface ContentRendererNativeComponentSpec {
  */
 export interface Spec {
   /** Parse raw content string into a structured representation. */
-  parseContent(content: string, type: string): Promise<ParsedContent>;
+  parseContent(content: string, type: string): Promise<NativeParsedContent>;
 
   /** Compute resolved CSS styles for a given HTML node against provided rules. */
   computeStyles(htmlNode: string, cssRules: string, options: string): Promise<string>;
@@ -64,7 +64,7 @@ export interface Spec {
   extractData(content: string, type: string, extractors: string): Promise<string>;
 
   /** Validate content and return errors/warnings. */
-  validateContent(content: string, type: string): Promise<ValidationResult>;
+  validateContent(content: string, type: string): Promise<NativeValidationResult>;
 }
 
 // ------------------------------------------
@@ -121,7 +121,7 @@ export function createTurboModuleProxy(): Spec {
 
 function createJSPolyfill(): Spec {
   return {
-    async parseContent(content: string, type: string): Promise<ParsedContent> {
+    async parseContent(content: string, type: string): Promise<NativeParsedContent> {
       // Basic content analysis without a full parser
       const metadata = JSON.stringify({
         size: content.length,
@@ -181,7 +181,7 @@ function createJSPolyfill(): Spec {
       return JSON.stringify(extracted);
     },
 
-    async validateContent(content: string, type: string): Promise<ValidationResult> {
+    async validateContent(content: string, type: string): Promise<NativeValidationResult> {
       const errors: string[] = [];
       const warnings: string[] = [];
 

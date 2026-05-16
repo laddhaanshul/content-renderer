@@ -28,6 +28,7 @@ import ThemesShowcase from './pages/ThemesShowcase';
 import SanitizeDemo from './pages/SanitizeDemo';
 import LanguageSupport from './pages/LanguageSupport';
 import EnhancedI18N from './pages/EnhancedI18N';
+import StreamingExample from './pages/StreamingExample';
 
 const pages: Record<string, { label: string; component: React.FC }> = {
   html: { label: 'HTML', component: HTMLExample },
@@ -39,12 +40,13 @@ const pages: Record<string, { label: string; component: React.FC }> = {
   css: { label: 'CSS', component: CSSExample },
   'auto-detect': { label: 'Auto-Detect', component: AutoDetectExample },
   extraction: { label: 'Extraction', component: ExtractionExample },
+  streaming: { label: 'Streaming (New)', component: StreamingExample },
   theme: { label: 'Theme', component: ThemeExample },
   hooks: { label: 'Hooks', component: HooksExample },
   hoc: { label: 'HOC', component: HOCExample },
   'content-service': { label: 'Content Service', component: ContentServiceExample },
   'virtualized': { label: 'Virtualized HTML', component: VirtualizedExample },
-  plugins: { label: 'Plugin System', component: PluginExample },
+  plugins: { label: 'Advanced Plugins', component: PluginExample },
   accessibility: { label: 'Accessibility', component: AccessibilityExample },
   ssr: { label: 'SSR', component: SSRExample },
   'error-recovery': { label: 'Error Recovery', component: ErrorRecoveryExample },

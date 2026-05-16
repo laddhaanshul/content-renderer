@@ -28,10 +28,10 @@
   },
   "overrides": {
     "ajv": "^8.8.2",
-    "ip": "1.1.9",
-    "entities": "6.0.0",
+    "ip": "2.0.1",
+    "entities": "7.0.0",
     "htmlparser2": "10.0.0",
-    "@react-native/debugger-frontend": "0.73.3"
+    "@react-native/debugger-frontend": "0.80.0"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -41,10 +41,10 @@
     "react": "18.2.0",
     "react-native": "0.73.6",
     "@types/react": "^18.2.48",
-    "ip": "1.1.9",
-    "entities": "6.0.0",
+    "ip": "2.0.1",
+    "entities": "7.0.0",
     "htmlparser2": "10.0.0",
-    "@react-native/debugger-frontend": "0.73.3"
+    "@react-native/debugger-frontend": "0.80.0"
   },
   "repository": {
     "type": "git",
@@ -60,7 +60,11 @@
     "markdown",
     "json",
     "parser",
-    "code-highlighting"
+    "code-highlighting",
+    "llm-streaming",
+    "real-time",
+    "generative-ai",
+    "streaming"
   ],
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

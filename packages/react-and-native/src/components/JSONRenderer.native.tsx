@@ -34,7 +34,11 @@ import { lightNativeTheme, darkNativeTheme, type NativeTheme } from '../themes/n
 
 export interface JSONRendererProps {
   /** JSON data to render (object, array, string, number, etc.) */
-  data: unknown;
+  json?: unknown;
+  /** Alias for json */
+  data?: unknown;
+  /** Alias for json */
+  content?: unknown;
   /** Initial root label. Default: "root". */
   rootName?: string;
   /** Starting expanded depth. Default: 2. */
@@ -63,6 +67,10 @@ export interface JSONRendererProps {
   collapseAfter?: number;
   /** Sort object keys alphabetically. Default: false. */
   sortKeys?: boolean;
+  /** Whether the tree is read-only. Default: true. */
+  readonly?: boolean;
+  /** Callback for when a value is edited. */
+  onEdit?: (path: string, newValue: any, oldValue: any) => void;
 }
 
 type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
@@ -111,6 +119,8 @@ interface ValueNodeProps {
   maxDepth: number;
   collapseAfter: number;
   sortKeys: boolean;
+  readonly: boolean;
+  onEdit?: (path: string, newValue: any, oldValue: any) => void;
 }
 
 const INDENT = 16;
@@ -155,14 +165,32 @@ const ValueNode: React.FC<ValueNodeProps> = ({
   maxDepth,
   collapseAfter,
   sortKeys,
+  readonly,
+  onEdit,
 }) => {
   const isExpanded = expandedPaths.has(currentPath);
   const atMaxDepth = depth >= maxDepth;
+  const [editValue, setEditValue] = useState(String(value));
+
+  const handleBlur = () => {
+    if (readonly || !onEdit) return;
+    let newValue: any = editValue;
+    if (value === null) {
+      if (editValue.toLowerCase() === 'null') newValue = null;
+    } else if (typeof value === 'number') {
+      newValue = parseFloat(editValue);
+      if (isNaN(newValue)) newValue = value;
+    } else if (typeof value === 'boolean') {
+      newValue = editValue.toLowerCase() === 'true';
+    }
+    
+    if (newValue !== value) {
+      onEdit(currentPath, newValue, value);
+    }
+  };
 
   if (value === null || typeof value !== 'object') {
-    // Primitive value
     const isStr = typeof value === 'string';
-    const displayValue = isStr ? `"${value}"` : String(value);
     const style = value === null
       ? theme.jsonViewer.nullVal
       : typeof value === 'string'
@@ -170,6 +198,26 @@ const ValueNode: React.FC<ValueNodeProps> = ({
         : typeof value === 'number'
           ? theme.jsonViewer.numberVal
           : theme.jsonViewer.booleanVal;
+
+    if (!readonly) {
+      return (
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {isStr && <Text style={style}>"</Text>}
+          <TextInput
+            style={[style, { fontSize: 13, padding: 0, minWidth: 40 }]}
+            value={editValue}
+            onChangeText={setEditValue}
+            onBlur={handleBlur}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          {isStr && <Text style={style}>"</Text>}
+          {!isLast && <Text style={theme.jsonViewer.bracket}>,</Text>}
+        </View>
+      );
+    }
+
+    const displayValue = isStr ? `"${value}"` : String(value);
 
     return (
       <Text style={[style, { fontSize: 13 }]}>
@@ -279,6 +327,8 @@ const ValueNode: React.FC<ValueNodeProps> = ({
                   maxDepth={maxDepth}
                   collapseAfter={collapseAfter}
                   sortKeys={sortKeys}
+                  readonly={readonly}
+                  onEdit={onEdit}
                 />
               </View>
             );
@@ -296,8 +346,8 @@ const ValueNode: React.FC<ValueNodeProps> = ({
 // Component
 // ---------------------------------------------------------------------------
 
-const JSONRenderer: React.FC<JSONRendererProps> = ({
-  data,
+export const JSONRenderer: React.FC<JSONRendererProps> = ({
+  json,
   rootName = 'root',
   initialExpandDepth = 2,
   maxDepth = 20,
@@ -312,27 +362,41 @@ const JSONRenderer: React.FC<JSONRendererProps> = ({
   accessibilityLabel,
   collapseAfter = 100,
   sortKeys = false,
+  readonly = true,
+  onEdit,
+  data: dataAlias,
+  content: contentAlias,
 }) => {
+  const jsonValue = json ?? dataAlias ?? contentAlias;
+  const processedData = useMemo(() => {
+    if (typeof jsonValue === 'string') {
+      try {
+        return JSON.parse(jsonValue);
+      } catch {
+        return jsonValue;
+      }
+    }
+    return jsonValue;
+  }, [jsonValue]);
+
+  const [searchQuery, setSearchQuery] = useState('');
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(() => {
-    // Expand initial depth
     const paths = new Set<string>();
     function expandObject(value: unknown, path: string, depth: number) {
       if (depth >= initialExpandDepth) return;
       if (isObject(value)) {
         paths.add(path);
-        for (const key of Object.keys(value)) {
-          expandObject(value[key], `${path}.${key}`, depth + 1);
+        for (const key of Object.keys(value as object)) {
+          expandObject((value as any)[key], `${path}.${key}`, depth + 1);
         }
       } else if (isArray(value)) {
         paths.add(path);
-        value.forEach((v, i) => expandObject(v, `${path}.${i}`, depth + 1));
+        (value as any[]).forEach((v, i) => expandObject(v, `${path}.${i}`, depth + 1));
       }
     }
-    expandObject(data, rootName, 0);
+    expandObject(processedData, rootName, 0);
     return paths;
   });
-
-  const [searchQuery, setSearchQuery] = useState('');
 
   const resolvedTheme = useMemo<NativeTheme>(() => {
     const base = dark ? darkNativeTheme : lightNativeTheme;
@@ -369,16 +433,16 @@ const JSONRenderer: React.FC<JSONRendererProps> = ({
         value.forEach((v, i) => expandAll(v, `${path}.${i}`));
       }
     }
-    expandAll(data, rootName);
+    expandAll(processedData, rootName);
     setExpandedPaths(paths);
-  }, [data, rootName]);
+  }, [processedData, rootName]);
 
   const handleCollapseAll = useCallback(() => {
     setExpandedPaths(new Set());
   }, []);
 
   const handleCopy = useCallback(async () => {
-    const text = stringifySafe(data);
+    const text = stringifySafe(processedData);
     try {
       if (Platform.OS === 'web') {
         await navigator.clipboard.writeText(text);
@@ -388,14 +452,14 @@ const JSONRenderer: React.FC<JSONRendererProps> = ({
     } catch {
       // Clipboard might not be available
     }
-  }, [data]);
+  }, [processedData]);
 
   // Filter: if search query, only show matching paths
   const filteredData = useMemo(() => {
-    if (!searchQuery.trim()) return data;
+    if (!searchQuery.trim()) return processedData;
     const query = searchQuery.trim().toLowerCase();
-    return filterJSON(data, query);
-  }, [data, searchQuery]);
+    return filterJSON(processedData, query);
+  }, [processedData, searchQuery]);
 
   return (
     <View
@@ -478,6 +542,8 @@ const JSONRenderer: React.FC<JSONRendererProps> = ({
           maxDepth={maxDepth}
           collapseAfter={collapseAfter}
           sortKeys={sortKeys}
+          readonly={readonly}
+          onEdit={onEdit}
         />
       </ScrollView>
     </View>

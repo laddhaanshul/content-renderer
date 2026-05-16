@@ -413,6 +413,34 @@ import { ErrorBoundary } from '@laddhaanshul/content-renderer';
 
 ---
 
+### `StreamingContentRenderer`
+
+Real-time incremental rendering for chunked HTML or AST nodes. Ideal for LLM and generative AI streaming responses.
+
+```tsx
+import { StreamingContentRenderer } from '@laddhaanshul/content-renderer';
+
+<StreamingContentRenderer
+  stream={htmlStream}        // A ReadableStream or mock async iterator yielding strings/bytes
+  astStream={astStream}      // Alternatively, a stream of pre-parsed AST nodes
+  fallback={<div>Waiting for stream...</div>}
+  onStreamStart={() => console.log('Stream started')}
+  onStreamComplete={() => console.log('Stream complete')}
+  onStreamError={(err) => console.error(err)}
+/>
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `stream` | `ReadableStream<Uint8Array> \| any` | — | Stream yielding HTML chunks |
+| `astStream` | `ReadableStream<any> \| any` | — | Stream yielding pre-parsed AST nodes |
+| `fallback` | `ReactNode` | — | Fallback component to show before stream starts |
+| `onStreamStart` | `() => void` | — | Callback triggered when stream starts |
+| `onStreamComplete` | `() => void` | — | Callback triggered when stream completes |
+| `onStreamError` | `(error) => void` | — | Callback triggered on stream error |
+
+---
+
 ## Hooks
 
 All hooks from `@laddhaanshul/content-renderer-core` are re-exported here for convenience:
