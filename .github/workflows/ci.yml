@@ -21,7 +21,7 @@ jobs:
           node-version: 20
       - run: yarn install --frozen-lockfile
       - name: Build core (for types)
-        run: npm run build --workspace=@content-renderer/core
+        run: npm run build --workspace=@laddhaanshul/content-renderer-core
       - name: Typecheck all
         run: npm run typecheck --workspaces --if-present
 
@@ -36,13 +36,13 @@ jobs:
           node-version: 20
       - run: yarn install --frozen-lockfile
       - name: Build core first
-        run: npm run build --workspace=@content-renderer/core
+        run: npm run build --workspace=@laddhaanshul/content-renderer-core
       - name: Build react-and-native
-        run: npm run build --workspace=@content-renderer/react-and-native
+        run: npm run build --workspace=@laddhaanshul/content-renderer
       - name: Verify react-and-native core dep is satisfied
         run: |
           CORE_VER=$(node -p "require('./packages/core/package.json').version")
-          RAN_CORE_DEP=$(node -p "require('./packages/react-and-native/package.json').dependencies['@content-renderer/core']")
+          RAN_CORE_DEP=$(node -p "require('./packages/react-and-native/package.json').dependencies['@laddhaanshul/content-renderer-core']")
           echo "core version:       $CORE_VER"
           echo "react-and-native dep: $RAN_CORE_DEP"
       - uses: actions/upload-artifact@v4
