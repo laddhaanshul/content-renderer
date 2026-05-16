@@ -96,6 +96,8 @@ export {
   isValidURL,
   isValidEmail,
   isValidPhoneNumber,
+  isIP,
+  isPublicIP,
   getContentTypeFromExtension,
   getContentTypeFromMIME,
   getContentTypeFromHeader,

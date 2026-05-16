@@ -183,15 +183,94 @@ export function isValidCSS(content: string): boolean {
   return braceCount === 0;
 }
 
-export function isValidURL(url: string): boolean {
+export function isValidURL(url: string, options?: { allowPrivateIPs?: boolean }): boolean {
   if (!url || typeof url !== 'string') return false;
 
   try {
     const parsed = new URL(url);
-    return ['http:', 'https:', 'ftp:', 'ftps:', 'mailto:', 'tel:', 'file:'].includes(parsed.protocol);
+    if (!['http:', 'https:', 'ftp:', 'ftps:', 'mailto:', 'tel:', 'file:'].includes(parsed.protocol)) {
+      return false;
+    }
+
+    // SSRF protection: block private IPs if requested
+    if (options?.allowPrivateIPs === false) {
+      const hostname = parsed.hostname;
+      if (isIP(hostname) && !isPublicIP(hostname)) {
+        return false;
+      }
+      // Also block 'localhost'
+      if (hostname === 'localhost') return false;
+    }
+
+    return true;
   } catch {
     return false;
   }
+}
+
+/**
+ * Check if a string is a valid IPv4 or IPv6 address.
+ */
+export function isIP(ip: string): boolean {
+  const ipv4Regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+  const ipv6Regex = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/;
+  return ipv4Regex.test(ip) || ipv6Regex.test(ip);
+}
+
+/**
+ * Check if an IP address is public (not private, loopback, link-local, etc.)
+ * This addresses the "ip" package SSRF vulnerability (GHSA-2p57-rm9w-gvfp)
+ * by providing a correct categorization.
+ */
+export function isPublicIP(ip: string): boolean {
+  if (!isIP(ip)) return false;
+
+  // IPv4 checks
+  if (ip.includes('.')) {
+    const parts = ip.split('.').map(Number);
+    
+    // Private ranges (RFC 1918)
+    if (parts[0] === 10) return false;
+    if (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) return false;
+    if (parts[0] === 192 && parts[1] === 168) return false;
+    
+    // Loopback (RFC 1122)
+    if (parts[0] === 127) return false;
+    
+    // Link-local (RFC 3927)
+    if (parts[0] === 169 && parts[1] === 254) return false;
+    
+    // Shared address space (RFC 6598)
+    if (parts[0] === 100 && parts[1] >= 64 && parts[1] <= 127) return false;
+    
+    // Future use (RFC 1112)
+    if (parts[0] >= 240) return false;
+    
+    // Current network (RFC 1122)
+    if (parts[0] === 0) return false;
+    
+    // Broadcast
+    if (ip === '255.255.255.255') return false;
+
+    return true;
+  }
+
+  // IPv6 checks
+  const lowerIP = ip.toLowerCase();
+  
+  // Loopback
+  if (lowerIP === '::1' || lowerIP === '0:0:0:0:0:0:0:1') return false;
+  
+  // Unspecified
+  if (lowerIP === '::' || lowerIP === '0:0:0:0:0:0:0:0') return false;
+  
+  // Unique Local Address (ULA)
+  if (lowerIP.startsWith('fc') || lowerIP.startsWith('fd')) return false;
+  
+  // Link-local
+  if (lowerIP.startsWith('fe80')) return false;
+
+  return true;
 }
 
 export function isValidEmail(email: string): boolean {

@@ -174,6 +174,7 @@ export {
   isValidJSON,
   isValidXML,
   isValidCSS,
+  isValidURL,
   detectContentType,
 } from '@laddhaanshul/content-renderer-core';
 
