@@ -63,8 +63,8 @@
   "license": "MIT",
   "dependencies": {
     "css-tree": "^2.3.1",
-    "entities": "8.0.0",
-    "htmlparser2": "12.0.0"
+    "entities": "6.0.0",
+    "htmlparser2": "10.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
