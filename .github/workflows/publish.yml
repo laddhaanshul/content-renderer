@@ -40,8 +40,11 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Typecheck
-        run: npm run typecheck
+      - name: Build core (for types)
+        run: npm run build --workspace=@content-renderer/core
+
+      - name: Typecheck all
+        run: npm run typecheck --workspaces --if-present
 
   # ─── Step 2: Build ──────────────────────────────────────────────────────────
   build:
