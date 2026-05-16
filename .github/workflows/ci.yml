@@ -20,7 +20,10 @@ jobs:
         with:
           node-version: 20
       - run: yarn install --frozen-lockfile
-      - run: npm run typecheck
+      - name: Build core (for types)
+        run: npm run build --workspace=@content-renderer/core
+      - name: Typecheck all
+        run: npm run typecheck --workspaces --if-present
 
   build:
     name: Build
