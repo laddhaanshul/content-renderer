@@ -1,6 +1,6 @@
 {
   "name": "@laddhaanshul/content-renderer-core",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Platform-agnostic parsing, extraction, sanitization and transformation engine for HTML, JSON, XML, Markdown, PHP and CSS. Works in browsers, Node.js, Next.js and React Native.",
   "homepage": "https://content-renderer.anshulladdha.in/",
   "repository": {
