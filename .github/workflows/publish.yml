@@ -41,7 +41,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build core (for types)
-        run: npm run build --workspace=@content-renderer/core
+        run: npm run build --workspace=@laddhaanshul/content-renderer-core
 
       - name: Typecheck all
         run: npm run typecheck --workspaces --if-present
@@ -93,13 +93,13 @@ jobs:
           node -p "require('./package.json').version"
           node -p "require('./packages/core/package.json').version"
           node -p "require('./packages/react-and-native/package.json').version"
-          node -p "require('./packages/react-and-native/package.json').dependencies['@content-renderer/core']"
+          node -p "require('./packages/react-and-native/package.json').dependencies['@laddhaanshul/content-renderer-core']"
 
-      - name: Build @content-renderer/core
-        run: npm run build --workspace=@content-renderer/core
+      - name: Build @laddhaanshul/content-renderer-core
+        run: npm run build --workspace=@laddhaanshul/content-renderer-core
 
-      - name: Build @content-renderer/react-and-native
-        run: npm run build --workspace=@content-renderer/react-and-native
+      - name: Build @laddhaanshul/content-renderer
+        run: npm run build --workspace=@laddhaanshul/content-renderer
 
       - name: Upload core dist
         uses: actions/upload-artifact@v4
@@ -127,7 +127,7 @@ jobs:
 
   # ─── Step 3: Publish core ────────────────────────────────────────────────────
   publish-core:
-    name: Publish @content-renderer/core
+    name: Publish @laddhaanshul/content-renderer-core
     runs-on: ubuntu-latest
     needs: build
     if: ${{ github.event.inputs.dry_run != 'true' }}
@@ -170,25 +170,25 @@ jobs:
       - name: Check if version already published
         id: check_core
         run: |
-          if npm view @content-renderer/core@${{ env.VERSION }} version 2>/dev/null; then
+          if npm view @laddhaanshul/content-renderer-core@${{ env.VERSION }} version 2>/dev/null; then
             echo "already_published=true" >> $GITHUB_OUTPUT
-            echo "⚠️  @content-renderer/core@${{ env.VERSION }} already exists on npm — skipping."
+            echo "⚠️  @laddhaanshul/content-renderer-core@${{ env.VERSION }} already exists on npm — skipping."
           else
             echo "already_published=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Publish @content-renderer/core to npm
+      - name: Publish @laddhaanshul/content-renderer-core to npm
         if: steps.check_core.outputs.already_published == 'false'
         run: |
           cd packages/core
           npm publish --access public --provenance
-          echo "✅ Published @content-renderer/core@${{ env.VERSION }}"
+          echo "✅ Published @laddhaanshul/content-renderer-core@${{ env.VERSION }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   # ─── Step 4: Publish react-and-native ────────────────────────────────────────
   publish-react-and-native:
-    name: Publish @content-renderer/react-and-native
+    name: Publish @laddhaanshul/content-renderer
     runs-on: ubuntu-latest
     needs: [build, publish-core]
     if: ${{ github.event.inputs.dry_run != 'true' }}
@@ -224,19 +224,19 @@ jobs:
       - name: Check if version already published
         id: check_ran
         run: |
-          if npm view @content-renderer/react-and-native@${{ env.VERSION }} version 2>/dev/null; then
+          if npm view @laddhaanshul/content-renderer@${{ env.VERSION }} version 2>/dev/null; then
             echo "already_published=true" >> $GITHUB_OUTPUT
-            echo "⚠️  @content-renderer/react-and-native@${{ env.VERSION }} already exists on npm — skipping."
+            echo "⚠️  @laddhaanshul/content-renderer@${{ env.VERSION }} already exists on npm — skipping."
           else
             echo "already_published=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Publish @content-renderer/react-and-native to npm
+      - name: Publish @laddhaanshul/content-renderer to npm
         if: steps.check_ran.outputs.already_published == 'false'
         run: |
           cd packages/react-and-native
           npm publish --access public --provenance
-          echo "✅ Published @content-renderer/react-and-native@${{ env.VERSION }}"
+          echo "✅ Published @laddhaanshul/content-renderer@${{ env.VERSION }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -276,8 +276,8 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Package | Version | npm |" >> $GITHUB_STEP_SUMMARY
           echo "|---------|---------|-----|" >> $GITHUB_STEP_SUMMARY
-          echo "| \`@content-renderer/core\` | v${{ env.VERSION }} | [View](https://www.npmjs.com/package/@content-renderer/core/v/${{ env.VERSION }}) |" >> $GITHUB_STEP_SUMMARY
-          echo "| \`@content-renderer/react-and-native\` | v${{ env.VERSION }} | [View](https://www.npmjs.com/package/@content-renderer/react-and-native/v/${{ env.VERSION }}) |" >> $GITHUB_STEP_SUMMARY
+          echo "| \`@laddhaanshul/content-renderer-core\` | v${{ env.VERSION }} | [View](https://www.npmjs.com/package/@laddhaanshul/content-renderer-core/v/${{ env.VERSION }}) |" >> $GITHUB_STEP_SUMMARY
+          echo "| \`@laddhaanshul/content-renderer\` | v${{ env.VERSION }} | [View](https://www.npmjs.com/package/@laddhaanshul/content-renderer/v/${{ env.VERSION }}) |" >> $GITHUB_STEP_SUMMARY
 
   # ─── Step 6: Build web example (post-publish smoke test) ─────────────────────
   smoke-test:
@@ -297,8 +297,8 @@ jobs:
         working-directory: apps/web-example
         run: |
           npm install --no-save \
-            @content-renderer/core@${{ needs.build.outputs.version }} \
-            @content-renderer/react-and-native@${{ needs.build.outputs.version }}
+            @laddhaanshul/content-renderer-core@${{ needs.build.outputs.version }} \
+            @laddhaanshul/content-renderer@${{ needs.build.outputs.version }}
 
       - name: Build web example
         working-directory: apps/web-example
