@@ -1,6 +1,6 @@
 {
   "name": "@laddhaanshul/content-renderer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Universal React and React Native components for rendering HTML, Markdown, JSON, XML, PHP, CSS and source code. Auto-detects content type. Runs on web and mobile from a single import.",
   "homepage": "https://content-renderer.anshulladdha.in/",
   "repository": {
@@ -83,7 +83,11 @@
     }
   },
   "dependencies": {
+<<<<<<< HEAD
     "@laddhaanshul/content-renderer-core": "1.0.2",
+=======
+    "@laddhaanshul/content-renderer-core": "1.0.3",
+>>>>>>> 00c18bba9f6593f54d1118cdbb02da6226ab4b57
     "entities": "^4.5.0",
     "htmlparser2": "^9.0.0"
   },
