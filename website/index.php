@@ -91,7 +91,7 @@ $github = 'https://github.com/laddhaanshul/content-renderer';
         </div>
         <div class="cwin-body">
 <pre><span class="kw">import</span> <span class="punc">{</span> <span class="comp">ContentRenderer</span> <span class="punc">}</span> <span class="kw">from</span>
-  <span class="str">'@content-renderer/react-and-native'</span><span class="punc">;</span>
+  <span class="str">'@laddhaanshul/content-renderer'</span><span class="punc">;</span>
 
 <span class="com">// Auto-detects & safely renders ANY content type!</span>
 <span class="kw">export default function</span> <span class="fn">App</span><span class="punc">() {</span>
@@ -190,7 +190,7 @@ $github = 'https://github.com/laddhaanshul/content-renderer';
       <div class="pkg-box anim">
         <div class="pkg-top">
           <div class="pkg-glow"></div>
-          <div class="pkg-npm">@content-renderer/core</div>
+          <div class="pkg-npm">@laddhaanshul/content-renderer-core</div>
           <h3 class="pkg-name-big">The Engine</h3>
           <p class="pkg-tagline">Pure parsing, transformation, and extraction logic. Zero DOM dependencies.</p>
           <div class="pkg-meta">
@@ -228,7 +228,7 @@ $github = 'https://github.com/laddhaanshul/content-renderer';
       <div class="pkg-box pkg-box--cyan anim">
         <div class="pkg-top">
           <div class="pkg-glow"></div>
-          <div class="pkg-npm">@content-renderer/react-and-native</div>
+          <div class="pkg-npm">@laddhaanshul/content-renderer</div>
           <h3 class="pkg-name-big">The UI Layer</h3>
           <p class="pkg-tagline">Universal React components. Write once, render anywhere.</p>
           <div class="pkg-meta">
@@ -360,12 +360,12 @@ $github = 'https://github.com/laddhaanshul/content-renderer';
     <div class="ipanel on anim" id="npm">
       <div class="icmd">
         <span class="iname">Install UI Package</span>
-        <code class="icode">npm install @content-renderer/react-and-native</code>
+        <code class="icode">npm install @laddhaanshul/content-renderer</code>
         <button class="icopy">Copy</button>
       </div>
       <div class="icmd">
         <span class="iname">Install Core Only</span>
-        <code class="icode">npm install @content-renderer/core</code>
+        <code class="icode">npm install @laddhaanshul/content-renderer-core</code>
         <button class="icopy">Copy</button>
       </div>
     </div>
@@ -373,12 +373,12 @@ $github = 'https://github.com/laddhaanshul/content-renderer';
     <div class="ipanel anim" id="yarn">
       <div class="icmd">
         <span class="iname">Install UI Package</span>
-        <code class="icode">yarn add @content-renderer/react-and-native</code>
+        <code class="icode">yarn add @laddhaanshul/content-renderer</code>
         <button class="icopy">Copy</button>
       </div>
       <div class="icmd">
         <span class="iname">Install Core Only</span>
-        <code class="icode">yarn add @content-renderer/core</code>
+        <code class="icode">yarn add @laddhaanshul/content-renderer-core</code>
         <button class="icopy">Copy</button>
       </div>
     </div>
@@ -386,12 +386,12 @@ $github = 'https://github.com/laddhaanshul/content-renderer';
     <div class="ipanel anim" id="pnpm">
       <div class="icmd">
         <span class="iname">Install UI Package</span>
-        <code class="icode">pnpm add @content-renderer/react-and-native</code>
+        <code class="icode">pnpm add @laddhaanshul/content-renderer</code>
         <button class="icopy">Copy</button>
       </div>
       <div class="icmd">
         <span class="iname">Install Core Only</span>
-        <code class="icode">pnpm add @content-renderer/core</code>
+        <code class="icode">pnpm add @laddhaanshul/content-renderer-core</code>
         <button class="icopy">Copy</button>
       </div>
     </div>
@@ -416,8 +416,8 @@ $github = 'https://github.com/laddhaanshul/content-renderer';
       </div>
       <div class="ft-col">
         <h4>Packages</h4>
-        <a href="https://www.npmjs.com/package/@content-renderer/core" target="_blank">Core Engine</a>
-        <a href="https://www.npmjs.com/package/@content-renderer/react-and-native" target="_blank">React & Native UI</a>
+        <a href="https://www.npmjs.com/package/@laddhaanshul/content-renderer-core" target="_blank">Core Engine</a>
+        <a href="https://www.npmjs.com/package/@laddhaanshul/content-renderer" target="_blank">React & Native UI</a>
       </div>
       <div class="ft-col">
         <h4>Resources</h4>

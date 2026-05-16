@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
-import { HTMLRenderer, VirtualizedHTMLRenderer } from '@content-renderer/react-and-native';
+import { HTMLRenderer, VirtualizedHTMLRenderer } from '@laddhaanshul/content-renderer';
 
 const samples: Record<string, { label: string; code: string }> = {
   basic: {

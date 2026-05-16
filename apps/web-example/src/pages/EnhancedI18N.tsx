@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-// Local implementations for demo — these functions exist in @content-renderer/core
-// but are not re-exported from @content-renderer/react-and-native, so we load them dynamically.
+// Local implementations for demo — these functions exist in @laddhaanshul/content-renderer-core
+// but are not re-exported from @laddhaanshul/content-renderer, so we load them dynamically.
 function pluralize(locale: string, count: number, one: string, other: string, zero?: string): string {
   if (count === 0 && zero !== undefined) return zero;
   if (locale === 'fr') {

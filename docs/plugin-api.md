@@ -1,6 +1,6 @@
 # Plugin API Reference
 
-> **Version:** 1.0.0 | **Package:** `@content-renderer/core`
+> **Version:** 1.0.0 | **Package:** `@laddhaanshul/content-renderer-core`
 
 ## Table of Contents
 
@@ -113,7 +113,7 @@ Final Output
 import {
   PluginManager,
   PluginPriority,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // 1. Create a plugin manager
 const manager = new PluginManager({ verbose: true });
@@ -489,7 +489,7 @@ Plugins are executed in **descending priority order** — higher values run firs
 ### How Priority Affects Execution
 
 ```typescript
-import { PluginPriority } from '@content-renderer/core';
+import { PluginPriority } from '@laddhaanshul/content-renderer-core';
 
 // CRITICAL (1000) runs first
 const securityPlugin = { name: 'security', priority: PluginPriority.CRITICAL, ... };
@@ -934,7 +934,7 @@ import {
   builtInPlugins,
   createSanitizePlugin,
   createLinkRewritePlugin,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // Option 1: Register all built-in plugins
 const manager = new PluginManager({ verbose: true });

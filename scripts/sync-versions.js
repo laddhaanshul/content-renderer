@@ -3,8 +3,8 @@
  * sync-versions.js
  * ─────────────────────────────────────────────────────────
  * Synchronise all package versions inside the monorepo and
- * update the @content-renderer/core dependency inside
- * @content-renderer/react-and-native automatically.
+ * update the @laddhaanshul/content-renderer-core dependency inside
+ * @laddhaanshul/content-renderer automatically.
  *
  * Usage:
  *   node scripts/sync-versions.js 1.2.0
@@ -55,13 +55,13 @@ for (const dir of packages) {
 const ranDir = path.join(ROOT, 'packages/react-and-native');
 const ranPkg = readPkg(ranDir);
 
-if (ranPkg.dependencies && '@content-renderer/core' in ranPkg.dependencies) {
-  const prev = ranPkg.dependencies['@content-renderer/core'];
-  ranPkg.dependencies['@content-renderer/core'] = version;
+if (ranPkg.dependencies && '@laddhaanshul/content-renderer-core' in ranPkg.dependencies) {
+  const prev = ranPkg.dependencies['@laddhaanshul/content-renderer-core'];
+  ranPkg.dependencies['@laddhaanshul/content-renderer-core'] = version;
   writePkg(ranDir, ranPkg);
-  console.log(`\n  🔗  react-and-native > @content-renderer/core:  ${prev}  →  ${version}`);
+  console.log(`\n  🔗  react-and-native > @laddhaanshul/content-renderer-core:  ${prev}  →  ${version}`);
 } else {
-  console.warn('  ⚠️  @content-renderer/core dep not found in react-and-native/package.json');
+  console.warn('  ⚠️  @laddhaanshul/content-renderer-core dep not found in react-and-native/package.json');
 }
 
 console.log('\n✨  Done! Run `npm install` or `yarn` to update the lockfile.\n');

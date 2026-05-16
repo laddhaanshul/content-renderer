@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { CodeRenderer } from '@content-renderer/react-and-native';
+import { CodeRenderer } from '@laddhaanshul/content-renderer';
 
 const phpCode = `<?php
 

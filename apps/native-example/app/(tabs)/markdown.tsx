@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
-import { MarkdownRenderer } from '@content-renderer/react-and-native';
+import { MarkdownRenderer } from '@laddhaanshul/content-renderer';
 
 const samples: Record<string, { label: string; code: string }> = {
   basic: {
@@ -32,13 +32,13 @@ Render **any content type** directly in your native app.
 Get started by installing the package:
 
 \`\`\`bash
-npm install @content-renderer/react-and-native
+npm install @laddhaanshul/content-renderer
 \`\`\`
 
 Then use the components:
 
 \`\`\`tsx
-import { HTMLRenderer } from '@content-renderer/react-and-native';
+import { HTMLRenderer } from '@laddhaanshul/content-renderer';
 
 function App() {
   return (
@@ -111,7 +111,7 @@ Also works as [shortcut][] if defined.
 React Native content rendering is powerful[^1].
 It supports cross-platform rendering[^2] out of the box.
 
-[^1]: Especially with the @content-renderer/react-and-native package.
+[^1]: Especially with the @laddhaanshul/content-renderer package.
 [^2]: Works on iOS, Android, and Web from a single codebase.
 
 ## Definition Lists
@@ -179,7 +179,7 @@ export default function MarkdownScreen() {
       {/* Usage */}
       <View style={styles.usageBox}>
         <Text style={styles.usageTitle}>Usage</Text>
-        <Text style={styles.usageCode}>{`import { MarkdownRenderer } from '@content-renderer/react-and-native';
+        <Text style={styles.usageCode}>{`import { MarkdownRenderer } from '@laddhaanshul/content-renderer';
 
 <MarkdownRenderer
   markdown={markdownString}

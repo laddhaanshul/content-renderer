@@ -367,7 +367,7 @@ export default function CSSExample() {
         <CodeBlock
           language="tsx"
           title="Parser"
-          code={`import { CSSParser } from '@content-renderer/core';
+          code={`import { CSSParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new CSSParser();
 const result = parser.parse(cssString);

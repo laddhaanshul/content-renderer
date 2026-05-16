@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAllThemeNames, getTheme } from '@content-renderer/react-and-native';
+import { getAllThemeNames, getTheme } from '@laddhaanshul/content-renderer';
 
 export default function ThemesShowcase() {
   const themes = getAllThemeNames();

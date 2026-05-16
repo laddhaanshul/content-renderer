@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@content-renderer/react-and-native': path.resolve(__dirname, '../../packages/react-and-native/src'),
-      '@content-renderer/core': path.resolve(__dirname, '../../packages/core/src'),
+      '@laddhaanshul/content-renderer': path.resolve(__dirname, '../../packages/react-and-native/src'),
+      '@laddhaanshul/content-renderer-core': path.resolve(__dirname, '../../packages/core/src'),
       'react-native': path.resolve(__dirname, 'src/shims/react-native.js'),
     },
   },

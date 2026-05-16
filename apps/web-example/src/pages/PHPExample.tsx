@@ -290,7 +290,7 @@ export default function PHPExample() {
         <CodeBlock
           language="tsx"
           title="Component"
-          code={`import { PHPRenderer } from '@content-renderer/react-and-native';
+          code={`import { PHPRenderer } from '@laddhaanshul/content-renderer';
 
 function MyComponent() {
   return (

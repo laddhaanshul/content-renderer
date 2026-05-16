@@ -1,7 +1,7 @@
 /**
  * react-native web shim
  * Provides web-compatible implementations of react-native APIs
- * used by the cross-platform components in @content-renderer/react-and-native.
+ * used by the cross-platform components in @laddhaanshul/content-renderer.
  */
 import React from 'react';
 

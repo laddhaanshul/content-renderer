@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { CSSRenderer } from '@content-renderer/react-and-native';
+import { CSSRenderer } from '@laddhaanshul/content-renderer';
 
 const cssContent = `/* Main Styles */
 :root {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DiffRenderer } from '@content-renderer/react-and-native';
+import { DiffRenderer } from '@laddhaanshul/content-renderer';
 
 export default function DiffView() {
   const [oldCode, setOldCode] = useState(`function hello() {

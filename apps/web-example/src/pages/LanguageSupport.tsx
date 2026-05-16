@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAllLanguageNames, getLanguageExtensions, getLanguageDefinition } from '@content-renderer/react-and-native';
+import { getAllLanguageNames, getLanguageExtensions, getLanguageDefinition } from '@laddhaanshul/content-renderer';
 
 export default function LanguageSupport() {
   const languages = getAllLanguageNames();

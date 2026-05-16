@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════════
-// @content-renderer/react-and-native — Main Entry Point
+// @laddhaanshul/content-renderer — Main Entry Point
 // ═══════════════════════════════════════════════════════════════════════════════
 // Unified package supporting both React DOM (web) and React Native (mobile).
 // Components auto-select the correct implementation via .web.tsx / .native.tsx
@@ -154,7 +154,7 @@ export type {
   ContentServiceResult,
   UseContentServiceReturn,
   ContentServiceRendererProps,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Parsers from Core ─────────────────────────────────────────────
 
@@ -165,7 +165,7 @@ export {
   PHPParser,
   MarkdownParser,
   CSSParser,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Validation Functions from Core ────────────────────────────────
 
@@ -175,7 +175,7 @@ export {
   isValidXML,
   isValidCSS,
   detectContentType,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Extraction Utilities from Core ────────────────────────────────
 
@@ -199,7 +199,7 @@ export {
   extractStructuredData,
   extractFavicon,
   extractCanonical,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Sanitization Utilities from Core ──────────────────────────────
 
@@ -211,7 +211,7 @@ export {
   stripStyles,
   escapeHTML,
   unescapeHTML,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Formatting Utilities from Core ───────────────────────────────
 
@@ -224,7 +224,7 @@ export {
   prettify,
   convertToJSON,
   convertToXML,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Content Service ─────────────────────────────────────────────────────────
 
@@ -237,30 +237,30 @@ export {
   useExtract,
   useTheme,
   useContentService,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export HOCs from Core ────────────────────────────────────────────────
 
 export {
   withContentParser,
   withExtract,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Providers from Core ───────────────────────────────────────────
 
 export {
   ContentParserProvider,
   useContentRendererConfig,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Themes from Core ──────────────────────────────────────────────
 
-export { lightTheme, darkTheme } from '@content-renderer/core';
+export { lightTheme, darkTheme } from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Plugin System from Core ──────────────────────────────────────
 
-export { PluginManager } from '@content-renderer/core';
-export type { PluginHook, PluginDefinition, PluginManagerOptions } from '@content-renderer/core';
+export { PluginManager } from '@laddhaanshul/content-renderer-core';
+export type { PluginHook, PluginDefinition, PluginManagerOptions } from '@laddhaanshul/content-renderer-core';
 export {
   lineNumbersPlugin,
   sanitizePlugin,
@@ -270,7 +270,7 @@ export {
   imageProxyPlugin,
   emojiPlugin,
   headingAnchorPlugin,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 export {
   createLineNumbersPlugin,
   createSanitizePlugin,
@@ -280,7 +280,7 @@ export {
   createImageProxyPlugin,
   createEmojiPlugin,
   createHeadingAnchorPlugin,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Accessibility from Core ──────────────────────────────────────
 
@@ -296,14 +296,14 @@ export {
   getHeadingLevels,
   checkColorContrast,
   generateScreenReaderText,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 export type {
   AccessibilityOptions,
   AccessibilityTree,
   AccessibilityIssue,
   HeadingStructure,
   ContrastResult,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export SSR Utilities from Core ──────────────────────────────────────
 
@@ -316,8 +316,8 @@ export {
   createSSRContent,
   isServer,
   isClient,
-} from '@content-renderer/core';
-export type { SSRRenderOptions, SSRMetadata } from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
+export type { SSRRenderOptions, SSRMetadata } from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Error Recovery from Core ─────────────────────────────────────
 
@@ -330,7 +330,7 @@ export {
   sanitizeErrorOutput,
   createFallbackContent,
   suggestFixes,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export i18n from Core ───────────────────────────────────────────────
 
@@ -353,8 +353,8 @@ export {
   addLocale,
   getTranslationsForKey,
   formatCurrency,
-} from '@content-renderer/core';
-export type { I18nOptions, I18nContext, TranslationData } from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
+export type { I18nOptions, I18nContext, TranslationData } from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export PDF Export from Core ─────────────────────────────────────────
 
@@ -369,8 +369,8 @@ export {
   generatePageCSS,
   splitContentForPages,
   tableToPrintHTML,
-} from '@content-renderer/core';
-export type { PDFExportOptions, PDFContent, PDFPageOptions } from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
+export type { PDFExportOptions, PDFContent, PDFPageOptions } from '@laddhaanshul/content-renderer-core';
 
 // ─── New Components ────────────────────────────────────────────────────────
 
@@ -381,25 +381,25 @@ export type { VirtualizedCodeRendererProps } from './components/VirtualizedCodeR
 
 // ─── Extended Syntax Support from Core ─────────────────────────────────────
 
-export { EXTENDED_LANGUAGES, getLanguageDefinition, getLanguageExtensions, getAllLanguageNames } from '@content-renderer/core';
-export type { LanguageDefinition } from '@content-renderer/core';
-export { THEME_REGISTRY, getTheme, getAllThemeNames, createCustomTheme } from '@content-renderer/core';
-export type { SyntaxTheme as CoreSyntaxTheme } from '@content-renderer/core';
+export { EXTENDED_LANGUAGES, getLanguageDefinition, getLanguageExtensions, getAllLanguageNames } from '@laddhaanshul/content-renderer-core';
+export type { LanguageDefinition } from '@laddhaanshul/content-renderer-core';
+export { THEME_REGISTRY, getTheme, getAllThemeNames, createCustomTheme } from '@laddhaanshul/content-renderer-core';
+export type { SyntaxTheme as CoreSyntaxTheme } from '@laddhaanshul/content-renderer-core';
 
 // ─── JSONPath from Core ────────────────────────────────────────────────────
 
-export { queryPath, queryPathSingle, parseJSONPath } from '@content-renderer/core';
-export type { JSONPathSegment } from '@content-renderer/core';
+export { queryPath, queryPathSingle, parseJSONPath } from '@laddhaanshul/content-renderer-core';
+export type { JSONPathSegment } from '@laddhaanshul/content-renderer-core';
 
 // ─── Diff Engine from Core ─────────────────────────────────────────────────
 
-export { createDiff, createUnifiedDiff, computeLineChanges, applyDiff } from '@content-renderer/core';
-export type { DiffLine as CoreDiffLine, DiffResult } from '@content-renderer/core';
+export { createDiff, createUnifiedDiff, computeLineChanges, applyDiff } from '@laddhaanshul/content-renderer-core';
+export type { DiffLine as CoreDiffLine, DiffResult } from '@laddhaanshul/content-renderer-core';
 
 // ─── Enhanced Sanitization from Core ───────────────────────────────────────
 
-export { sanitizeHTMLWithOptions, sanitizeSVG, sanitizeMathML, stripEventHandlers, stripDataAttributes, isSafeHTML, DEFAULT_ALLOWED_TAGS, DEFAULT_ALLOWED_ATTRIBUTES } from '@content-renderer/core';
-export type { SanitizeOptions } from '@content-renderer/core';
+export { sanitizeHTMLWithOptions, sanitizeSVG, sanitizeMathML, stripEventHandlers, stripDataAttributes, isSafeHTML, DEFAULT_ALLOWED_TAGS, DEFAULT_ALLOWED_ATTRIBUTES } from '@laddhaanshul/content-renderer-core';
+export type { SanitizeOptions } from '@laddhaanshul/content-renderer-core';
 
 // ─── Worker Support ────────────────────────────────────────────────────────
 

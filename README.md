@@ -33,7 +33,7 @@
 - **React Hooks** — `useContentParser`, `useExtract`, and `useTheme` hooks for programmatic content access
 - **Higher-Order Components** — `withContentParser` and `withExtract` for class component support
 - **Theme System** — Built-in light/dark themes with full customization via the `Theme` interface
-- **TypeScript Support** — 100% TypeScript with comprehensive type definitions exported from `@content-renderer/core`
+- **TypeScript Support** — 100% TypeScript with comprehensive type definitions exported from `@laddhaanshul/content-renderer-core`
 - **Zero External Runtime Dependencies** — Core package has minimal dependencies (`htmlparser2`, `entities`, `css-tree`)
 - **React Native Support** — Native rendering with platform-appropriate components using React Native primitives
 - **Error Boundaries** — Built-in error handling with custom fallback rendering
@@ -49,8 +49,8 @@ This monorepo contains two packages:
 
 | Package | Description | Peer Dependencies |
 |---|---|---|
-| `@content-renderer/core` | Parsers, utilities, hooks, HOCs, providers, and themes | None |
-| `@content-renderer/react-and-native` | React + React Native components for rendering all content types (unified) | `react >=17`, `react-dom >=17`, `react-native >=0.68` |
+| `@laddhaanshul/content-renderer-core` | Parsers, utilities, hooks, HOCs, providers, and themes | None |
+| `@laddhaanshul/content-renderer` | React + React Native components for rendering all content types (unified) | `react >=17`, `react-dom >=17`, `react-native >=0.68` |
 
 ---
 
@@ -62,40 +62,40 @@ Install the packages you need for your platform:
 
 ```bash
 # npm
-npm install @content-renderer/core
+npm install @laddhaanshul/content-renderer-core
 
 # yarn
-yarn add @content-renderer/core
+yarn add @laddhaanshul/content-renderer-core
 
 # pnpm
-pnpm add @content-renderer/core
+pnpm add @laddhaanshul/content-renderer-core
 ```
 
 ### React Package (Web + Native)
 
 ```bash
 # npm
-npm install @content-renderer/react-and-native
+npm install @laddhaanshul/content-renderer
 
 # yarn
-yarn add @content-renderer/react-and-native
+yarn add @laddhaanshul/content-renderer
 
 # pnpm
-pnpm add @content-renderer/react-and-native
+pnpm add @laddhaanshul/content-renderer
 ```
 
 ```bash
 # npm
-npm install @content-renderer/react-and-native
+npm install @laddhaanshul/content-renderer
 
 # yarn
-yarn add @content-renderer/react-and-native
+yarn add @laddhaanshul/content-renderer
 
 # pnpm
-pnpm add @content-renderer/react-and-native
+pnpm add @laddhaanshul/content-renderer
 ```
 
-> **Note:** `@content-renderer/react-and-native` depends on `@content-renderer/core` internally. You do not need to install it separately unless you want to use its parsers and utilities directly.
+> **Note:** `@laddhaanshul/content-renderer` depends on `@laddhaanshul/content-renderer-core` internally. You do not need to install it separately unless you want to use its parsers and utilities directly.
 
 ---
 
@@ -106,7 +106,7 @@ pnpm add @content-renderer/react-and-native
 The `ContentRenderer` component automatically detects content type and renders accordingly:
 
 ```tsx
-import { ContentRenderer } from '@content-renderer/react-and-native';
+import { ContentRenderer } from '@laddhaanshul/content-renderer';
 
 function App() {
   const content = '<h1>Hello World</h1><p>This is <strong>HTML</strong> content.</p>';
@@ -117,7 +117,7 @@ function App() {
 ### HTML Rendering
 
 ```tsx
-import { HTMLRenderer } from '@content-renderer/react-and-native';
+import { HTMLRenderer } from '@laddhaanshul/content-renderer';
 
 function App() {
   return (
@@ -139,7 +139,7 @@ function App() {
 ### JSON Rendering
 
 ```tsx
-import { JSONRenderer } from '@content-renderer/react-and-native';
+import { JSONRenderer } from '@laddhaanshul/content-renderer';
 
 function App() {
   const data = JSON.stringify({
@@ -166,7 +166,7 @@ function App() {
 ### Markdown Rendering
 
 ```tsx
-import { MarkdownRenderer } from '@content-renderer/react-and-native';
+import { MarkdownRenderer } from '@laddhaanshul/content-renderer';
 
 function App() {
   return (
@@ -200,7 +200,7 @@ console.log(greeting);
 ### Code Rendering
 
 ```tsx
-import { CodeRenderer } from '@content-renderer/react-and-native';
+import { CodeRenderer } from '@laddhaanshul/content-renderer';
 
 function App() {
   return (
@@ -223,7 +223,7 @@ function App() {
 ### Auto-Detection with the Core Hook
 
 ```tsx
-import { useContentParser } from '@content-renderer/core';
+import { useContentParser } from '@laddhaanshul/content-renderer-core';
 
 function ContentDisplayer({ content }: { content: string }) {
   const { parsed, data, isLoading, isError, errors } = useContentParser({
@@ -248,7 +248,7 @@ function ContentDisplayer({ content }: { content: string }) {
 ### Using Extraction Utilities
 
 ```tsx
-import { useExtract } from '@content-renderer/core';
+import { useExtract } from '@laddhaanshul/content-renderer-core';
 
 function SEOExtractor({ htmlContent }: { htmlContent: string }) {
   const { extracted, isLoading } = useExtract({
@@ -287,7 +287,7 @@ function SEOExtractor({ htmlContent }: { htmlContent: string }) {
 ### Using HOCs (Higher-Order Components)
 
 ```tsx
-import { withContentParser } from '@content-renderer/core';
+import { withContentParser } from '@laddhaanshul/content-renderer-core';
 
 interface MyProps {
   content: string;
@@ -319,7 +319,7 @@ import {
   ContentRenderer,
   lightTheme,
   darkTheme,
-} from '@content-renderer/react-and-native';
+} from '@laddhaanshul/content-renderer';
 
 function App() {
   return (
@@ -348,7 +348,7 @@ function App() {
 Fetch content from any API endpoint and render it directly. Perfect for AEM pages, headless CMS responses, or any REST API that returns content.
 
 ```tsx
-import { ContentServiceRenderer } from '@content-renderer/react-and-native';
+import { ContentServiceRenderer } from '@laddhaanshul/content-renderer';
 
 // Fetch and render content from an API URL
 function Page() {
@@ -372,8 +372,8 @@ function Page() {
 ```
 
 ```tsx
-import { useContentService } from '@content-renderer/core';
-import { ContentRenderer } from '@content-renderer/react-and-native';
+import { useContentService } from '@laddhaanshul/content-renderer-core';
+import { ContentRenderer } from '@laddhaanshul/content-renderer';
 
 // Use the hook for full control
 function CustomPage() {
@@ -463,7 +463,7 @@ function SecurePage() {
 
 ## Available API & Exported Items
 
-### `@content-renderer/core`
+### `@laddhaanshul/content-renderer-core`
 
 The foundational package providing parsing logic and utilities.
 
@@ -472,7 +472,7 @@ The foundational package providing parsing logic and utilities.
 - **Utilities:** `sanitizeHTML`, `minifyHTML`, `formatHTML`, `detectContentType`, `CSEngine`, `Accessibility`.
 - **Advanced:** `PluginManager`, `SSR` utilities, `Error Recovery`, `i18n` (42 locales), `PDF Export`.
 
-### `@content-renderer/react-and-native`
+### `@laddhaanshul/content-renderer`
 
 The UI package with platform-aware components for Web and Mobile.
 
@@ -859,7 +859,7 @@ Provides global configuration to all descendant content renderers.
 Full-featured HTML parser with DOM manipulation utilities.
 
 ```typescript
-import { HTMLParser } from '@content-renderer/core';
+import { HTMLParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new HTMLParser();
 
@@ -898,7 +898,7 @@ parser.cloneNode(node, true); // deep clone
 JSON parser with path querying, diffing, and schema inference.
 
 ```typescript
-import { JSONParser } from '@content-renderer/core';
+import { JSONParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new JSONParser();
 
@@ -939,7 +939,7 @@ const schema = parser.inferSchema(data);
 XML parser with XPath-like queries and object conversion.
 
 ```typescript
-import { XMLParser } from '@content-renderer/core';
+import { XMLParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new XMLParser({
   preserveWhitespace: false,
@@ -972,7 +972,7 @@ const obj = parser.toObject(root);
 PHP source code parser with class and function extraction.
 
 ```typescript
-import { PHPParser } from '@content-renderer/core';
+import { PHPParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new PHPParser({
   extractDocBlocks: true,
@@ -997,7 +997,7 @@ const variables = parser.extractVariables(phpCode);
 Markdown parser with GFM support and frontmatter extraction.
 
 ```typescript
-import { MarkdownParser } from '@content-renderer/core';
+import { MarkdownParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new MarkdownParser({
   parseFrontmatter: true,
@@ -1028,7 +1028,7 @@ const toc = parser.extractTableOfContents(markdown);
 CSS parser with rule extraction and specificity calculation.
 
 ```typescript
-import { CSSParser } from '@content-renderer/core';
+import { CSSParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new CSSParser({
   preserveComments: true,
@@ -1070,7 +1070,7 @@ import {
   extractComments, extractSEO, extractOpenGraph, extractTwitterCards,
   extractStructuredData, extractClasses, extractIds, extractAttributes,
   extractByTag, extractDataAttributes, extractFavicon, extractCanonical,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 | Function | Signature | Description |
@@ -1108,8 +1108,8 @@ import {
 import {
   sanitizeHTML, stripTags, stripAttributes, stripScripts,
   stripStyles, escapeHTML, unescapeHTML, encodeEntities, decodeEntities,
-} from '@content-renderer/core';
-import type { SanitizeOptions } from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
+import type { SanitizeOptions } from '@laddhaanshul/content-renderer-core';
 ```
 
 | Function | Signature | Description |
@@ -1151,7 +1151,7 @@ import {
   convertToJSON, convertToXML, convertToMarkdown,
   truncate, slugify, camelCase, kebabCase, snakeCase,
   pascalCase, titleCase, capitalize, detectContentType,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 ---
@@ -1164,7 +1164,7 @@ import {
   isValidURL, isValidEmail, isValidPhoneNumber,
   getContentTypeFromExtension, getContentTypeFromMIME,
   getContentTypeFromHeader,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 ---
@@ -1174,7 +1174,7 @@ import {
 Two built-in themes are provided:
 
 ```typescript
-import { lightTheme, darkTheme } from '@content-renderer/core';
+import { lightTheme, darkTheme } from '@laddhaanshul/content-renderer-core';
 ```
 
 **Theme interface:**
@@ -1208,7 +1208,7 @@ content-renderer/
 │   └── context.md                  # Project context and history
 ├── packages/
 │   ├── core/
-│   │   ├── package.json            # @content-renderer/core
+│   │   ├── package.json            # @laddhaanshul/content-renderer-core
 │   │   ├── tsconfig.json
 │   │   └── src/
 │   │       ├── index.ts            # Main entry point
@@ -1245,7 +1245,7 @@ content-renderer/
 │   │           ├── index.ts
 │   │           └── default.ts      # lightTheme, darkTheme
 │   ├── react/
-│   │   ├── package.json            # @content-renderer/react-and-native
+│   │   ├── package.json            # @laddhaanshul/content-renderer
 │   │   ├── tsconfig.json
 │   │   └── src/
 │   │       ├── index.ts
@@ -1388,7 +1388,7 @@ npm run typecheck
 
 ### Web Example (Vite + React)
 
-The web example app demonstrates all features of `@content-renderer/react-and-native`:
+The web example app demonstrates all features of `@laddhaanshul/content-renderer`:
 
 ```bash
 cd apps/web-example
@@ -1413,7 +1413,7 @@ Includes interactive examples for:
 
 ### Native Example (Expo)
 
-The native example app demonstrates `@content-renderer/react-and-native` (React Native):
+The native example app demonstrates `@laddhaanshul/content-renderer` (React Native):
 
 ```bash
 cd apps/native-example

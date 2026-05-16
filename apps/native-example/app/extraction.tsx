@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { extractLinks, extractImages, extractMeta, extractHeadings, extractSEO } from '@content-renderer/core';
+import { extractLinks, extractImages, extractMeta, extractHeadings, extractSEO } from '@laddhaanshul/content-renderer-core';
 
 const sampleHTML = `<!DOCTYPE html>
 <html lang="en">

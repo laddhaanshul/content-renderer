@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import { ContentServiceRenderer } from '@content-renderer/react-and-native';
+import { ContentServiceRenderer } from '@laddhaanshul/content-renderer';
 
 interface SampleScenario {
   label: string;
@@ -188,7 +188,7 @@ export default function ServiceScreen() {
       {/* Usage */}
       <View style={styles.usageBox}>
         <Text style={styles.usageTitle}>Usage</Text>
-        <Text style={styles.usageCode}>{`import { ContentServiceRenderer } from '@content-renderer/react-and-native';
+        <Text style={styles.usageCode}>{`import { ContentServiceRenderer } from '@laddhaanshul/content-renderer';
 
 // Fetch from a real URL
 <ContentServiceRenderer

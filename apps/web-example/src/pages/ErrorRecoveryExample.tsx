@@ -18,7 +18,7 @@ export default function ErrorRecoveryExample() {
   recoverFromHTMLError,
   recoverFromJSONError,
   suggestFixes,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 const result = recoverFromHTMLError(brokenHTML);
 // { content: string, errors: string[], fixed: boolean }

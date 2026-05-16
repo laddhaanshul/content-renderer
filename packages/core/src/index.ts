@@ -1,5 +1,5 @@
 // ==========================================
-// @content-renderer/core - Main Entry Point
+// @laddhaanshul/content-renderer-core - Main Entry Point
 // ==========================================
 
 // Types

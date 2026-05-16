@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SUPPORTED_LOCALES, isRTL, getDirection, formatNumber, formatDate, getLocalizedText } from '@content-renderer/react-and-native';
+import { SUPPORTED_LOCALES, isRTL, getDirection, formatNumber, formatDate, getLocalizedText } from '@laddhaanshul/content-renderer';
 
 export default function I18NExample() {
   const [locale, setLocale] = useState('en');

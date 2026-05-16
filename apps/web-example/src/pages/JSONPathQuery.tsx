@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { queryPath } from '@content-renderer/react-and-native';
+import { queryPath } from '@laddhaanshul/content-renderer';
 
 const sampleData = {
   store: {

@@ -237,7 +237,7 @@ export default function AutoDetectExample() {
         <CodeBlock
           language="tsx"
           title="Component"
-          code={`import { detectContentType, HTMLRenderer, JSONRenderer, MarkdownRenderer } from '@content-renderer/core';
+          code={`import { detectContentType, HTMLRenderer, JSONRenderer, MarkdownRenderer } from '@laddhaanshul/content-renderer-core';
 
 function AutoRender({ content }: { content: string }) {
   const type = detectContentType(content);

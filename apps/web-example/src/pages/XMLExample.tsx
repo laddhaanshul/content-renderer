@@ -281,7 +281,7 @@ export default function XMLExample() {
         <CodeBlock
           language="tsx"
           title="Component"
-          code={`import { XMLParser, XMLNode } from '@content-renderer/core';
+          code={`import { XMLParser, XMLNode } from '@laddhaanshul/content-renderer-core';
 
 function MyComponent() {
   const parser = new XMLParser();

@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════════
-// @content-renderer/react-and-native — Native Entry Point
+// @laddhaanshul/content-renderer — Native Entry Point
 // ═══════════════════════════════════════════════════════════════════════════════
 // Native-only entry point used by tsconfig.native.json.
 // Exports .native.tsx component variants and native-compatible utilities.
@@ -148,7 +148,7 @@ export type {
   ContentServiceResult,
   UseContentServiceReturn,
   ContentServiceRendererProps,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Parsers from Core ─────────────────────────────────────────────
 
@@ -159,7 +159,7 @@ export {
   PHPParser,
   MarkdownParser,
   CSSParser,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Validation Functions from Core ────────────────────────────────
 
@@ -169,7 +169,7 @@ export {
   isValidXML,
   isValidCSS,
   detectContentType,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Extraction Utilities from Core ────────────────────────────────
 
@@ -193,7 +193,7 @@ export {
   extractStructuredData,
   extractFavicon,
   extractCanonical,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Sanitization Utilities from Core ──────────────────────────────
 
@@ -205,7 +205,7 @@ export {
   stripStyles,
   escapeHTML,
   unescapeHTML,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Formatting Utilities from Core ───────────────────────────────
 
@@ -218,7 +218,7 @@ export {
   prettify,
   convertToJSON,
   convertToXML,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Hooks from Core ───────────────────────────────────────────────
 
@@ -227,22 +227,22 @@ export {
   useExtract,
   useTheme,
   useContentService,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export HOCs from Core ────────────────────────────────────────────────
 
 export {
   withContentParser,
   withExtract,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Providers from Core ───────────────────────────────────────────
 
 export {
   ContentParserProvider,
   useContentRendererConfig,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // ─── Re-export Themes from Core ──────────────────────────────────────────────
 
-export { lightTheme, darkTheme } from '@content-renderer/core';
+export { lightTheme, darkTheme } from '@laddhaanshul/content-renderer-core';

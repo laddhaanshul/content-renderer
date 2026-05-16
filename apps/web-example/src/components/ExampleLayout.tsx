@@ -13,7 +13,7 @@ export default function ExampleLayout({ title, children }: ExampleLayoutProps) {
         <p style={styles.description}>
           Interactive examples demonstrating the{' '}
           <code style={styles.code}>{title}</code> rendering capabilities of
-          @content-renderer.
+          @laddhaanshul/content-renderer.
         </p>
       </header>
       <main style={styles.content}>{children}</main>

@@ -1,8 +1,8 @@
-# @content-renderer/core
+# @laddhaanshul/content-renderer-core
 
-[![npm version](https://img.shields.io/npm/v/@content-renderer/core.svg)](https://www.npmjs.com/package/@content-renderer/core)
-[![npm downloads](https://img.shields.io/npm/dm/@content-renderer/core.svg)](https://www.npmjs.com/package/@content-renderer/core)
-[![license](https://img.shields.io/npm/l/@content-renderer/core.svg)](https://github.com/laddhaanshul/content-renderer/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@laddhaanshul/content-renderer-core.svg)](https://www.npmjs.com/package/@laddhaanshul/content-renderer-core)
+[![npm downloads](https://img.shields.io/npm/dm/@laddhaanshul/content-renderer-core.svg)](https://www.npmjs.com/package/@laddhaanshul/content-renderer-core)
+[![license](https://img.shields.io/npm/l/@laddhaanshul/content-renderer-core.svg)](https://github.com/laddhaanshul/content-renderer/blob/main/LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org/)
 
@@ -15,9 +15,9 @@
 ## Installation
 
 ```bash
-npm install @content-renderer/core
-yarn add @content-renderer/core
-pnpm add @content-renderer/core
+npm install @laddhaanshul/content-renderer-core
+yarn add @laddhaanshul/content-renderer-core
+pnpm add @laddhaanshul/content-renderer-core
 ```
 
 **No peer dependencies.** Works in any JavaScript environment.
@@ -34,7 +34,7 @@ pnpm add @content-renderer/core
 ## Quick Start
 
 ```typescript
-import { HTMLParser, extractSEO, sanitizeHTML, detectContentType } from '@content-renderer/core';
+import { HTMLParser, extractSEO, sanitizeHTML, detectContentType } from '@laddhaanshul/content-renderer-core';
 
 // Parse HTML
 const parser = new HTMLParser();
@@ -75,7 +75,7 @@ const safe = sanitizeHTML(untrustedHtml, {
 Full HTML5 parser with DOM querying, manipulation, and serialization.
 
 ```typescript
-import { HTMLParser } from '@content-renderer/core';
+import { HTMLParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new HTMLParser({
   lowercaseTags: true,           // default: true
@@ -114,7 +114,7 @@ const doc = parser.parse(htmlString);
 JSON parser with JSONPath, diffing, schema inference, and deep manipulation.
 
 ```typescript
-import { JSONParser } from '@content-renderer/core';
+import { JSONParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new JSONParser();
 const doc = parser.parse(jsonString); // doc.schema auto-inferred
@@ -145,7 +145,7 @@ const flat  = parser.flatten(nested);
 XML parser with XPath-like queries, namespace support, and JS object conversion.
 
 ```typescript
-import { XMLParser } from '@content-renderer/core';
+import { XMLParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new XMLParser({
   preserveWhitespace: false,
@@ -178,7 +178,7 @@ const obj   = parser.toObject(doc.root);
 GitHub-Flavored Markdown parser with frontmatter and TOC generation.
 
 ```typescript
-import { MarkdownParser } from '@content-renderer/core';
+import { MarkdownParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new MarkdownParser({ gfm: true, parseFrontmatter: true });
 const doc  = parser.parse(markdownString);
@@ -203,7 +203,7 @@ const toc  = parser.extractTableOfContents(markdownString);
 PHP source code analyzer extracting classes, functions, and variables.
 
 ```typescript
-import { PHPParser } from '@content-renderer/core';
+import { PHPParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new PHPParser({ extractDocBlocks: true, trackLineNumbers: true });
 const doc     = parser.parse(phpCode);
@@ -219,7 +219,7 @@ const classes = parser.extractClasses(phpCode);
 CSS parser with custom properties, media queries, keyframes, and specificity.
 
 ```typescript
-import { CSSParser } from '@content-renderer/core';
+import { CSSParser } from '@laddhaanshul/content-renderer-core';
 
 const parser   = new CSSParser({ preserveComments: false });
 const vars     = parser.getVariables(cssString);   // { '--primary': '#6C63FF', ... }
@@ -270,7 +270,7 @@ import {
   extractDataAttributes,   // All data-* attributes
   extractFavicon,          // Favicon URL
   extractCanonical,        // Canonical URL
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // Extract everything at once
 const data = extractAll(htmlContent, 'html');
@@ -305,7 +305,7 @@ import {
   isSafeHTML,             // Boolean — is content safe?
   DEFAULT_ALLOWED_TAGS,   // Default tag allow-list array
   DEFAULT_ALLOWED_ATTRIBUTES, // Default attribute allow-list
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // Example — allow-list sanitization
 sanitizeHTML(untrustedHtml, {
@@ -340,7 +340,7 @@ import {
 
   // Auto-detect
   detectContentType,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 **`detectContentType(content)`** — heuristic detection:
@@ -368,7 +368,7 @@ import {
   getContentTypeFromExtension,  // '.json' → 'json'
   getContentTypeFromMIME,       // 'text/html' → 'html'
   getContentTypeFromHeader,     // First-line detection
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 ---
@@ -380,7 +380,7 @@ import {
 ### `useContentParser(options?)`
 
 ```typescript
-import { useContentParser } from '@content-renderer/core';
+import { useContentParser } from '@laddhaanshul/content-renderer-core';
 
 const {
   parsed, metadata, errors, warnings,
@@ -392,7 +392,7 @@ const {
 ### `useExtract(options?)`
 
 ```typescript
-import { useExtract } from '@content-renderer/core';
+import { useExtract } from '@laddhaanshul/content-renderer-core';
 
 const { extracted, isLoading, extract, reset } = useExtract({
   extractors: ['links', 'images', 'headings', 'meta'],
@@ -402,7 +402,7 @@ const { extracted, isLoading, extract, reset } = useExtract({
 ### `useTheme(initial?)`
 
 ```typescript
-import { useTheme } from '@content-renderer/core';
+import { useTheme } from '@laddhaanshul/content-renderer-core';
 
 const { theme, setTheme, toggleTheme, resetTheme, mode } = useTheme();
 ```
@@ -412,7 +412,7 @@ const { theme, setTheme, toggleTheme, resetTheme, mode } = useTheme();
 Fetch content from any URL with auto-detection, caching, retry, and polling.
 
 ```typescript
-import { useContentService } from '@content-renderer/core';
+import { useContentService } from '@laddhaanshul/content-renderer-core';
 
 const { content, contentType, isLoading, isError, error, retry, abort } =
   useContentService({
@@ -431,7 +431,7 @@ const { content, contentType, isLoading, isError, error, retry, abort } =
 ## Higher-Order Components
 
 ```typescript
-import { withContentParser, withExtract } from '@content-renderer/core';
+import { withContentParser, withExtract } from '@laddhaanshul/content-renderer-core';
 
 // Inject parsed content into any component
 const Enhanced = withContentParser(MyComponent, {
@@ -454,7 +454,7 @@ const Enhanced2 = withExtract(MyComponent, {
 ## Provider
 
 ```tsx
-import { ContentParserProvider, darkTheme } from '@content-renderer/core';
+import { ContentParserProvider, darkTheme } from '@laddhaanshul/content-renderer-core';
 
 <ContentParserProvider config={{
   theme: darkTheme,
@@ -472,7 +472,7 @@ import { ContentParserProvider, darkTheme } from '@content-renderer/core';
 ## Plugin System
 
 ```typescript
-import { PluginManager, PluginPriority, lineNumbersPlugin, tocPlugin } from '@content-renderer/core';
+import { PluginManager, PluginPriority, lineNumbersPlugin, tocPlugin } from '@laddhaanshul/content-renderer-core';
 
 const manager = new PluginManager({ verbose: false, hookTimeout: 5000 });
 
@@ -507,7 +507,7 @@ import {
   extractMetadataForSSR, generateHeadTags,
   generateStructuredData, createSSRContent,
   isServer, isClient,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 ### Accessibility
@@ -519,7 +519,7 @@ import {
   createAccessibleTree, validateAccessibility,
   checkColorContrast, generateScreenReaderText,
   ARIA_ROLES, ARIA_LANDMARK_ROLES,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 ### i18n & RTL (42 locales)
@@ -530,7 +530,7 @@ import {
   getLocalizedText, pluralize, interpolate,
   loadLocale, addLocale, setLocaleMessages,
   SUPPORTED_LOCALES, RTL_LOCALES,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 ### PDF Export
@@ -539,26 +539,26 @@ import {
 import {
   contentToPrintableHTML, generatePDFStyles,
   createPDFBlob, downloadPDF, previewPDF,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 ### Diff Engine
 
 ```typescript
-import { createDiff, createUnifiedDiff, computeLineChanges, applyDiff } from '@content-renderer/core';
+import { createDiff, createUnifiedDiff, computeLineChanges, applyDiff } from '@laddhaanshul/content-renderer-core';
 ```
 
 ### JSONPath
 
 ```typescript
-import { queryPath, queryPathSingle, parseJSONPath } from '@content-renderer/core';
+import { queryPath, queryPathSingle, parseJSONPath } from '@laddhaanshul/content-renderer-core';
 ```
 
 ### Syntax Highlighting
 
 ```typescript
-import { EXTENDED_LANGUAGES, getLanguageDefinition, getAllLanguageNames } from '@content-renderer/core';
-import { THEME_REGISTRY, getTheme, getAllThemeNames, createCustomTheme } from '@content-renderer/core';
+import { EXTENDED_LANGUAGES, getLanguageDefinition, getAllLanguageNames } from '@laddhaanshul/content-renderer-core';
+import { THEME_REGISTRY, getTheme, getAllThemeNames, createCustomTheme } from '@laddhaanshul/content-renderer-core';
 // 56 languages · 12 themes
 ```
 
@@ -569,7 +569,7 @@ import {
   recoverFromHTMLError, recoverFromJSONError, recoverFromMarkdownError,
   recoverFromCSSError, recoverFromXMLError,
   sanitizeErrorOutput, createFallbackContent, suggestFixes,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 ---
@@ -577,7 +577,7 @@ import {
 ## Themes
 
 ```typescript
-import { lightTheme, darkTheme } from '@content-renderer/core';
+import { lightTheme, darkTheme } from '@laddhaanshul/content-renderer-core';
 
 // Extend a theme
 const customTheme = {
@@ -613,7 +613,7 @@ import type {
   PluginDefinition, PluginHook, PluginManagerOptions, PluginHookContext,
   // Misc
   SanitizeOptions, ValidationResult, SSRRenderOptions, PDFExportOptions,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 ---

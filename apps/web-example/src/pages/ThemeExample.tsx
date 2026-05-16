@@ -99,7 +99,7 @@ function ThemedCodeBlock() {
       lineHeight: 1.7,
       overflow: 'auto',
     }}>
-      <div><span style={{ color: theme.colors.primary }}>import</span> {'{'} HTMLRenderer {'}'} <span style={{ color: theme.colors.primary }}>from</span> <span style={{ color: '#0a8f4f' }}>'@content-renderer/react-and-native'</span>;</div>
+      <div><span style={{ color: theme.colors.primary }}>import</span> {'{'} HTMLRenderer {'}'} <span style={{ color: theme.colors.primary }}>from</span> <span style={{ color: '#0a8f4f' }}>'@laddhaanshul/content-renderer'</span>;</div>
       <div style={{ marginTop: 8 }}>
         <span style={{ color: theme.colors.primary }}>const</span> {'<'}<span style={{ color: theme.colors.primary }}>App</span> {'/>'} = () {'=>'} {'('}
       </div>
@@ -251,7 +251,7 @@ export default function ThemeExample() {
         <CodeBlock
           language="tsx"
           title="Theme API"
-          code={`import { lightTheme, darkTheme, useTheme, ThemeContext } from '@content-renderer/core';
+          code={`import { lightTheme, darkTheme, useTheme, ThemeContext } from '@laddhaanshul/content-renderer-core';
 
 function App() {
   const [theme, setTheme] = useState(lightTheme);

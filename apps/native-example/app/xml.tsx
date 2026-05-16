@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { XMLRenderer } from '@content-renderer/react-and-native';
+import { XMLRenderer } from '@laddhaanshul/content-renderer';
 
 const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
 <bookstore name="Tech Books">

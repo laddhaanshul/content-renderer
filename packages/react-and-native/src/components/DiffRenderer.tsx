@@ -6,7 +6,7 @@ import React, { useMemo } from 'react';
 
 /**
  * Represents a single line in a text diff.
- * Mirrors the DiffLine type from @content-renderer/core's diff-engine so
+ * Mirrors the DiffLine type from @laddhaanshul/content-renderer-core's diff-engine so
  * the component works self-contained without a direct dependency on core.
  */
 export interface DiffLine {
@@ -115,7 +115,7 @@ const DARK_THEME: DiffThemeColors = {
 /**
  * Compute line-level diff between two strings using an LCS approach.
  * This is a self-contained implementation so the component doesn't depend
- * on @content-renderer/core's diff-engine at runtime.
+ * on @laddhaanshul/content-renderer-core's diff-engine at runtime.
  */
 function createDiff(oldText: string, newText: string): DiffLine[] {
   const oldLines = splitLines(oldText);

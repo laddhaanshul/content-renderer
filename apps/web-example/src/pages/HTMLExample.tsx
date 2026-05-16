@@ -247,7 +247,7 @@ export default function HTMLExample() {
         <CodeBlock
           language="tsx"
           title="Component"
-          code={`import { HTMLRenderer } from '@content-renderer/react-and-native';
+          code={`import { HTMLRenderer } from '@laddhaanshul/content-renderer';
 
 function MyComponent() {
   return (

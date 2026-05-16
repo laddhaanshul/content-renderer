@@ -13,7 +13,7 @@ export default function VirtualizedExample() {
         <li>Smooth scrolling performance even with 100,000+ items</li>
       </ul>
       <h3>Usage</h3>
-      <pre>{`import { VirtualizedCodeRenderer } from '@content-renderer/react-and-native';
+      <pre>{`import { VirtualizedCodeRenderer } from '@laddhaanshul/content-renderer';
 
 <VirtualizedCodeRenderer
   code={largeCodeString}

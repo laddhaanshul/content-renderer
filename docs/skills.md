@@ -21,7 +21,7 @@ The HTML parser skill uses `htmlparser2` under the hood to build a full DOM tree
 **Supported Elements:** All HTML5 elements including SVG, MathML, and custom elements.
 
 ```typescript
-import { HTMLParser } from '@content-renderer/core';
+import { HTMLParser } from '@laddhaanshul/content-renderer-core';
 const parser = new HTMLParser();
 const doc = parser.parse(htmlString);
 ```
@@ -40,7 +40,7 @@ The JSON parser skill provides rich JSON manipulation beyond simple parsing.
 - Circular reference detection during validation
 
 ```typescript
-import { JSONParser } from '@content-renderer/core';
+import { JSONParser } from '@laddhaanshul/content-renderer-core';
 const parser = new JSONParser();
 const diff = parser.diff(obj1, obj2);
 const value = parser.queryPath(data, '$.store.books[0].title');
@@ -59,7 +59,7 @@ The XML parser skill handles XML documents with namespace and processing instruc
 - Conversion to JavaScript objects with `toObject()`
 
 ```typescript
-import { XMLParser } from '@content-renderer/core';
+import { XMLParser } from '@laddhaanshul/content-renderer-core';
 const parser = new XMLParser({ stripNamespaces: false });
 const obj = parser.toObject(doc.root);
 ```
@@ -78,7 +78,7 @@ The PHP parser skill provides source-code-level analysis of PHP files.
 - Brace balance validation
 
 ```typescript
-import { PHPParser } from '@content-renderer/core';
+import { PHPParser } from '@laddhaanshul/content-renderer-core';
 const parser = new PHPParser({ extractDocBlocks: true });
 const classes = parser.extractClasses(phpCode);
 ```
@@ -98,7 +98,7 @@ The Markdown parser skill implements GitHub-Flavored Markdown (GFM).
 - Table of contents generation
 
 ```typescript
-import { MarkdownParser } from '@content-renderer/core';
+import { MarkdownParser } from '@laddhaanshul/content-renderer-core';
 const parser = new MarkdownParser({ gfm: true, parseFrontmatter: true });
 const toc = parser.extractTableOfContents(markdown);
 ```
@@ -117,7 +117,7 @@ The CSS parser skill handles modern CSS features.
 - CSS minification and formatting
 
 ```typescript
-import { CSSParser } from '@content-renderer/core';
+import { CSSParser } from '@laddhaanshul/content-renderer-core';
 const parser = new CSSParser();
 const variables = parser.getVariables(css);
 const rules = parser.getRulesBySelector(css, /\.container/);
@@ -136,7 +136,7 @@ import {
   extractAll, extractText, extractLinks, extractImages, extractScripts,
   extractStyles, extractMeta, extractHeadings, extractTables, extractForms,
   extractLists, extractCodeBlocks, extractComments,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 **SEO Extraction:**
@@ -168,7 +168,7 @@ The sanitization skill provides multi-layer XSS protection:
 import {
   sanitizeHTML, stripTags, stripAttributes, stripScripts,
   stripStyles, escapeHTML, unescapeHTML, encodeEntities, decodeEntities,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 **Layers:**
@@ -190,7 +190,7 @@ import {
   minifyHTML, minifyCSS, minifyJSON, minifyXML,
   formatHTML, formatCSS, formatJSON, formatXML, prettify,
   convertToJSON, convertToXML, convertToMarkdown,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 **Formatting:** Pretty-print HTML, CSS, JSON, and XML with configurable indentation.
@@ -207,7 +207,7 @@ import {
 
 **String Utilities:**
 ```typescript
-import { truncate, slugify, camelCase, kebabCase, snakeCase, pascalCase, titleCase, capitalize } from '@content-renderer/core';
+import { truncate, slugify, camelCase, kebabCase, snakeCase, pascalCase, titleCase, capitalize } from '@laddhaanshul/content-renderer-core';
 ```
 
 ---
@@ -219,7 +219,7 @@ import {
   isValidHTML, isValidJSON, isValidXML, isValidCSS,
   isValidURL, isValidEmail, isValidPhoneNumber,
   getContentTypeFromExtension, getContentTypeFromMIME, getContentTypeFromHeader,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 ```
 
 **Content Validation:**
@@ -270,7 +270,7 @@ Render content using native primitives:
 ### Built-in Themes
 
 ```typescript
-import { lightTheme, darkTheme } from '@content-renderer/core';
+import { lightTheme, darkTheme } from '@laddhaanshul/content-renderer-core';
 ```
 
 ### Theme Customization
@@ -302,7 +302,7 @@ const { theme, setTheme, toggleTheme, mode } = useTheme(customTheme);
 ### Server-Side Rendering (SSR)
 
 ```typescript
-import { extractSEO, detectContentType } from '@content-renderer/core';
+import { extractSEO, detectContentType } from '@laddhaanshul/content-renderer-core';
 
 // In your SSR framework
 function extractMetadataFromContent(html: string) {
@@ -317,7 +317,7 @@ function getContentType(content: string) {
 ### API Response Processing
 
 ```typescript
-import { JSONParser, extractLinks, validate } from '@content-renderer/core';
+import { JSONParser, extractLinks, validate } from '@laddhaanshul/content-renderer-core';
 
 async function processAPIResponse(responseText: string) {
   const parser = new JSONParser();
@@ -338,7 +338,7 @@ async function processAPIResponse(responseText: string) {
 import {
   sanitizeHTML, extractText, extractSEO,
   detectContentType, convertToMarkdown,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 function processUserContent(rawContent: string) {
   const type = detectContentType(rawContent);
@@ -370,7 +370,7 @@ Drop-in component that fetches content from API endpoints and renders it directl
 - Custom fetcher for authenticated requests
 
 ```tsx
-import { ContentServiceRenderer } from '@content-renderer/react-and-native';
+import { ContentServiceRenderer } from '@laddhaanshul/content-renderer';
 
 // AEM page content
 <ContentServiceRenderer
@@ -397,7 +397,7 @@ import { ContentServiceRenderer } from '@content-renderer/react-and-native';
 React hook for full control over content fetching with all the same capabilities.
 
 ```typescript
-import { useContentService } from '@content-renderer/core';
+import { useContentService } from '@laddhaanshul/content-renderer-core';
 
 const { content, isLoading, isError, error, retry, abort } = useContentService({
   url: '/api/content',

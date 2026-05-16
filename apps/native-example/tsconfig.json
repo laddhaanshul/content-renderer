@@ -4,10 +4,10 @@
     "strict": true,
     "noEmit": true,
     "paths": {
-      "@content-renderer/react-and-native": [
+      "@laddhaanshul/content-renderer": [
         "../../packages/react-and-native/src"
       ],
-      "@content-renderer/core": [
+      "@laddhaanshul/content-renderer-core": [
         "../../packages/core/src"
       ]
     }

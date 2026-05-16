@@ -17,7 +17,7 @@ export default function PluginExample() {
         <li><strong>Heading Anchor</strong> - Adds anchor links to headings</li>
       </ul>
       <h3>Custom Plugin API</h3>
-      <pre>{`import { PluginManager } from '@content-renderer/core';
+      <pre>{`import { PluginManager } from '@laddhaanshul/content-renderer-core';
 
 const plugin = {
   name: 'my-plugin',

@@ -7,14 +7,14 @@ import {
   TouchableOpacity,
   Switch,
 } from 'react-native';
-import { CodeRenderer } from '@content-renderer/react-and-native';
+import { CodeRenderer } from '@laddhaanshul/content-renderer';
 
 const samples: Record<string, { label: string; code: string; language: string }> = {
   js: {
     label: 'JavaScript',
     language: 'javascript',
     code: `// Content Renderer Core
-import { HTMLParser, JSONParser } from '@content-renderer/core';
+import { HTMLParser, JSONParser } from '@laddhaanshul/content-renderer-core';
 
 class Renderer {
   #parsers = new Map();
@@ -155,7 +155,7 @@ export default function CodeScreen() {
       {/* Usage */}
       <View style={styles.usageBox}>
         <Text style={styles.usageTitle}>Usage</Text>
-        <Text style={styles.usageCode}>{`import { CodeRenderer } from '@content-renderer/react-and-native';
+        <Text style={styles.usageCode}>{`import { CodeRenderer } from '@laddhaanshul/content-renderer';
 
 <CodeRenderer
   code={codeString}

@@ -326,7 +326,7 @@ export default function HOCExample() {
         <CodeBlock
           language="tsx"
           title="HOC API"
-          code={`import { withContentParser, withExtract } from '@content-renderer/core';
+          code={`import { withContentParser, withExtract } from '@laddhaanshul/content-renderer-core';
 
 // Wrap your component with parsing capabilities
 const MyParsedView = withContentParser(

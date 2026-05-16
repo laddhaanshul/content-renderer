@@ -1,4 +1,4 @@
-import type { MarkdownNode } from '@content-renderer/core';
+import type { MarkdownNode } from '@laddhaanshul/content-renderer-core';
 
 export interface MarkdownExtension {
   name: string;

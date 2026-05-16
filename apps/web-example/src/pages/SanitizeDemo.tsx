@@ -8,7 +8,7 @@ import {
   escapeHTML,
   DEFAULT_ALLOWED_TAGS,
   DEFAULT_ALLOWED_ATTRIBUTES,
-} from '@content-renderer/react-and-native';
+} from '@laddhaanshul/content-renderer';
 
 const styles = {
   container: { padding: 24 } as React.CSSProperties,

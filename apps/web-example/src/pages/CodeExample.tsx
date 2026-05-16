@@ -6,7 +6,7 @@ const samples: Record<string, { label: string; code: string; language: string }>
     label: 'JavaScript',
     language: 'javascript',
     code: `// Content Renderer - Main Entry
-import { HTMLParser, JSONParser, MarkdownParser } from '@content-renderer/core';
+import { HTMLParser, JSONParser, MarkdownParser } from '@laddhaanshul/content-renderer-core';
 
 class ContentRenderer {
   #parsers = new Map();
@@ -509,7 +509,7 @@ export default function CodeExample() {
         <CodeBlock
           language="tsx"
           title="Component"
-          code={`import { CodeRenderer } from '@content-renderer/react-and-native';
+          code={`import { CodeRenderer } from '@laddhaanshul/content-renderer';
 
 function MyComponent() {
   return (

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import type { PHPRendererProps } from '@content-renderer/core';
+import type { PHPRendererProps } from '@laddhaanshul/content-renderer-core';
 import { CodeRenderer } from './CodeRenderer';
 
 // ─── Types ───────────────────────────────────────────────────────────────────

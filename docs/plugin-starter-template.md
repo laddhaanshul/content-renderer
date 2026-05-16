@@ -22,7 +22,7 @@
 The smallest possible plugin that does something useful:
 
 ```typescript
-import { PluginDefinition } from '@content-renderer/core';
+import { PluginDefinition } from '@laddhaanshul/content-renderer-core';
 
 const myPlugin: PluginDefinition = {
   name: 'my-plugin',
@@ -62,7 +62,7 @@ import {
   ParsedContent,
   HTMLNode,
   MarkdownNode,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // =============================================
 // Types
@@ -536,7 +536,7 @@ export const highlighterPlugin = createHighlighterPlugin({ terms: ['important', 
 ```typescript
 // tests/plugins/my-super-plugin.test.ts
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'; // or jest
-import { PluginManager } from '@content-renderer/core';
+import { PluginManager } from '@laddhaanshul/content-renderer-core';
 import { createMySuperPlugin } from '../../src/plugins/my-super-plugin';
 
 describe('my-super-plugin', () => {
@@ -624,7 +624,7 @@ describe('my-super-plugin', () => {
 // test-plugin.ts
 // Run with: npx tsx test-plugin.ts
 
-import { PluginManager } from '@content-renderer/core';
+import { PluginManager } from '@laddhaanshul/content-renderer-core';
 import { createMySuperPlugin, createAsyncPlugin } from './src/plugins/my-super-plugin';
 
 async function main() {
@@ -698,7 +698,7 @@ main().catch(console.error);
 ### Basic Registration
 
 ```typescript
-import { PluginManager } from '@content-renderer/core';
+import { PluginManager } from '@laddhaanshul/content-renderer-core';
 import myPlugin from './plugins/my-plugin';
 
 const manager = new PluginManager({ verbose: true });
@@ -712,7 +712,7 @@ await manager.initAll();
 import {
   PluginManager,
   builtInPlugins,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 import myPlugin from './plugins/my-plugin';
 
 const manager = new PluginManager({ verbose: true });
@@ -736,7 +736,7 @@ import {
   createSanitizePlugin,
   createTocPlugin,
   createMetaEnricherPlugin,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 import myPlugin from './plugins/my-plugin';
 
 const manager = new PluginManager();

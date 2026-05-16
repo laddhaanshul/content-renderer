@@ -67,7 +67,7 @@ const sampleHTML = `<!DOCTYPE html>
       </ul>
 
       <h3>Code Example</h3>
-      <pre><code>import { HTMLRenderer } from '@content-renderer/react-and-native';</code></pre>
+      <pre><code>import { HTMLRenderer } from '@laddhaanshul/content-renderer';</code></pre>
 
       <img src="https://picsum.photos/seed/article/800/400" alt="Article hero image" width="800" height="400" />
       <img src="https://picsum.photos/seed/thumb1/200/150" alt="Thumbnail 1" width="200" height="150" />
@@ -380,7 +380,7 @@ export default function ExtractionExample() {
   extractLinks, extractImages, extractMeta,
   extractHeadings, extractSEO, extractOpenGraph,
   extractStructuredData, extractAll
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 // Extract individual types
 const links = extractLinks(htmlContent);

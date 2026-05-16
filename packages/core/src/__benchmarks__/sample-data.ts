@@ -432,13 +432,13 @@ Welcome to **content-renderer**! This library helps you render various content t
 ## Installation
 
 \`\`\`bash
-npm install @content-renderer/core
+npm install @laddhaanshul/content-renderer-core
 \`\`\`
 
 ## Quick Example
 
 \`\`\`typescript
-import { HTMLParser } from '@content-renderer/core';
+import { HTMLParser } from '@laddhaanshul/content-renderer-core';
 
 const parser = new HTMLParser();
 const doc = parser.parse('<h1>Hello</h1>');
@@ -473,7 +473,7 @@ function generateMediumMarkdown(): string {
 
   md += `### Data Extraction\n\n`;
   md += `Extract structured data from any content:\n\n`;
-  md += `\`\`\`typescript\nimport { extractAll } from '@content-renderer/core';\n\nconst data = extractAll(htmlContent, 'html');\nconsole.log(data.links);\nconsole.log(data.images);\nconsole.log(data.headings);\n\`\`\`\n\n`;
+  md += `\`\`\`typescript\nimport { extractAll } from '@laddhaanshul/content-renderer-core';\n\nconst data = extractAll(htmlContent, 'html');\nconsole.log(data.links);\nconsole.log(data.images);\nconsole.log(data.headings);\n\`\`\`\n\n`;
 
   md += `## Contributing\n\n`;
   md += `1. Fork the repository\n`;

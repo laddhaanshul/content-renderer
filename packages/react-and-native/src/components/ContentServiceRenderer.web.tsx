@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { useContentService } from '@content-renderer/core';
+import { useContentService } from '@laddhaanshul/content-renderer-core';
 import type {
   ContentServiceRendererProps,
   ContentServiceError,
   ContentServiceConfig,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 import { ContentRenderer } from './ContentRenderer';
 
 // ─── Default UI States ──────────────────────────────────────────────────────

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { contentToPrintableHTML, generatePDFStyles, previewPDF, downloadPDF, generatePageCSS, splitContentForPages } from '@content-renderer/react-and-native';
+import { contentToPrintableHTML, generatePDFStyles, previewPDF, downloadPDF, generatePageCSS, splitContentForPages } from '@laddhaanshul/content-renderer';
 
 export default function PDFExportExample() {
   const [content] = useState('# Sample Document\n\nThis is a **sample document** demonstrating PDF export.\n\n## Features\n\n- Clean typography with configurable fonts\n- Page breaks for long documents\n- Code block rendering\n- Table formatting\n\n> Exported using ContentRenderer PDF export.');

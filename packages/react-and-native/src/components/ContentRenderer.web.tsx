@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback, useState, useEffect, useRef } from 'react';
-import { detectContentType } from '@content-renderer/core';
-import type { ContentType, BaseRendererProps, ParseError, ParseWarning } from '@content-renderer/core';
+import { detectContentType } from '@laddhaanshul/content-renderer-core';
+import type { ContentType, BaseRendererProps, ParseError, ParseWarning } from '@laddhaanshul/content-renderer-core';
 import { HTMLRenderer } from './HTMLRenderer';
 import { CodeRenderer } from './CodeRenderer';
 import { JSONRenderer } from './JSONRenderer';

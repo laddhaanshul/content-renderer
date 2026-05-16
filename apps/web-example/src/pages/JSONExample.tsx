@@ -260,7 +260,7 @@ export default function JSONExample() {
         <CodeBlock
           language="tsx"
           title="Component"
-          code={`import { JSONRenderer } from '@content-renderer/react-and-native';
+          code={`import { JSONRenderer } from '@laddhaanshul/content-renderer';
 
 function MyComponent() {
   return (

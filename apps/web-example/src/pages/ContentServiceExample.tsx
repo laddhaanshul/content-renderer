@@ -126,13 +126,13 @@ const samples: Record<string, SampleScenario> = {
   "id": "getting-started",
   "version": "2.1.0",
   "format": "markdown",
-  "content": "# Getting Started\\n\\nFollow these steps to integrate content rendering into your app:\\n\\n## Installation\\n\\n\\\`\\\`\\\`bash\\nnpm install @content-renderer/react-and-native\\n\\\`\\\`\\\`\\n\\n## Quick Start\\n\\n1. Import the renderer\\n2. Pass your API response\\n3. Let it handle the rest\\n\\n> **Note:** Content is automatically sanitized for security.\\n\\n## Supported Formats\\n\\n| Format | Auto-detect | Notes |\\n|--------|:----------:|-------|\\n| HTML | Yes | Direct HTML strings |\\n| JSON | Yes | JSON with HTML fields |\\n| Markdown | Yes | Converted to HTML |\\n| AEM | Yes | Adobe Experience Manager |",
+  "content": "# Getting Started\\n\\nFollow these steps to integrate content rendering into your app:\\n\\n## Installation\\n\\n\\\`\\\`\\\`bash\\nnpm install @laddhaanshul/content-renderer\\n\\\`\\\`\\\`\\n\\n## Quick Start\\n\\n1. Import the renderer\\n2. Pass your API response\\n3. Let it handle the rest\\n\\n> **Note:** Content is automatically sanitized for security.\\n\\n## Supported Formats\\n\\n| Format | Auto-detect | Notes |\\n|--------|:----------:|-------|\\n| HTML | Yes | Direct HTML strings |\\n| JSON | Yes | JSON with HTML fields |\\n| Markdown | Yes | Converted to HTML |\\n| AEM | Yes | Adobe Experience Manager |",
   "lastUpdated": "2024-12-10T08:00:00Z"
 }`,
     renderedHTML: `<h1>Getting Started</h1>
 <p>Follow these steps to integrate content rendering into your app:</p>
 <h2>Installation</h2>
-<pre style="background: #1a1a2e; color: #cdd6f4; padding: 16px; border-radius: 8px; font-size: 13px; overflow-x: auto;"><code>npm install @content-renderer/react-and-native</code></pre>
+<pre style="background: #1a1a2e; color: #cdd6f4; padding: 16px; border-radius: 8px; font-size: 13px; overflow-x: auto;"><code>npm install @laddhaanshul/content-renderer</code></pre>
 <h2>Quick Start</h2>
 <ol>
   <li>Import the renderer</li>
@@ -249,7 +249,7 @@ export default function ContentServiceExample() {
         <CodeBlock
           language="tsx"
           title="Component"
-          code={`import { ContentServiceRenderer } from '@content-renderer/react-and-native';
+          code={`import { ContentServiceRenderer } from '@laddhaanshul/content-renderer';
 
 function ContentPage({ apiResponse }: { apiResponse: unknown }) {
   const handleLink = (href: string) => {

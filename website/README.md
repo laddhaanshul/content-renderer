@@ -1,6 +1,6 @@
 # content-renderer — Promotional Website
 
-A modern, single-page promotional website for the `@content-renderer` npm package ecosystem.
+A modern, single-page promotional website for the `@laddhaanshul/content-renderer` npm package ecosystem.
 
 ## Quick Start
 

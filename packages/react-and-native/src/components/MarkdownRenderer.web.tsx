@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import type { MarkdownRendererProps } from '@content-renderer/core';
+import type { MarkdownRendererProps } from '@laddhaanshul/content-renderer-core';
 import { HTMLRenderer } from './HTMLRenderer';
 import { CodeRenderer } from './CodeRenderer';
 

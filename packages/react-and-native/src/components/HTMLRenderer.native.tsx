@@ -56,11 +56,11 @@ import {
 } from '../utils/html-to-rn.native';
 import type { NativeTheme } from '../themes/native';
 import { lightNativeTheme } from '../themes/native';
-import { CSSParser } from '@content-renderer/core';
+import { CSSParser } from '@laddhaanshul/content-renderer-core';
 // CSEngine is imported dynamically to avoid export issues in some builds
 let CSEngineClass: any = null;
 try {
-  const coreMod = require('@content-renderer/core');
+  const coreMod = require('@laddhaanshul/content-renderer-core');
   CSEngineClass = coreMod.CSEngine || coreMod.default?.CSEngine || null;
 } catch { /* CSEngine not available in this build */ }
 

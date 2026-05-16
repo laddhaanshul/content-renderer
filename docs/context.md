@@ -98,12 +98,12 @@ The plugin system supports:
 
 ```typescript
 // Core
-import { HTMLParser, PluginManager } from '@content-renderer/core';
-import { PluginManager, PluginPriority } from '@content-renderer/core';
+import { HTMLParser, PluginManager } from '@laddhaanshul/content-renderer-core';
+import { PluginManager, PluginPriority } from '@laddhaanshul/content-renderer-core';
 
 // React & Native
-import { HTMLRenderer, ContentRenderer } from '@content-renderer/react-and-native';
-import { useFadeIn, useSlideIn } from '@content-renderer/react-and-native';
+import { HTMLRenderer, ContentRenderer } from '@laddhaanshul/content-renderer';
+import { useFadeIn, useSlideIn } from '@laddhaanshul/content-renderer';
 ```
 
 ## Version History

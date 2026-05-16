@@ -29,7 +29,7 @@ content-renderer/
 ├── README.md
 │
 ├── packages/
-│   ├── core/                       # @content-renderer/core
+│   ├── core/                       # @laddhaanshul/content-renderer-core
 │   │   ├── src/
 │   │   │   ├── index.ts
 │   │   │   ├── types/              # Type definitions
@@ -50,7 +50,7 @@ content-renderer/
 │   │   ├── tsconfig.json / .cjs.json / .esm.json
 │   │   └── package.json
 │   │
-│   ├── react/                      # @content-renderer/react-and-native
+│   ├── react/                      # @laddhaanshul/content-renderer
 │   │   ├── src/
 │   │   │   ├── index.ts            # Main entry (re-exports everything from core)
 │   │   │   ├── index.native.ts     # Native entry point
@@ -80,7 +80,7 @@ content-renderer/
 │   │   ├── tsconfig.json / .cjs.json / .esm.json / .native.json / .web.json
 │   │   └── package.json
 │   │
-│   └── react-native/               # @content-renderer/react-and-native (REDUNDANT)
+│   └── react-native/               # @laddhaanshul/content-renderer (REDUNDANT)
 │       ├── src/
 │       │   ├── index.ts
 │       │   ├── turbo-modules.ts    # Only unique file in this package
@@ -122,34 +122,34 @@ content-renderer/
 ### Dependency Graph
 
 ```
-@content-renderer/core (standalone, zero React dependency)
+@laddhaanshul/content-renderer-core (standalone, zero React dependency)
         │
         ▼
-@content-renderer/react-and-native (depends on core + React + React DOM + React Native)
+@laddhaanshul/content-renderer (depends on core + React + React DOM + React Native)
         │               ├── react-dom (optional peer dep)
         │               └── react-native (optional peer dep)
         ▼
-@content-renderer/react-and-native (depends on core + React Native)  ← REDUNDANT
+@laddhaanshul/content-renderer (depends on core + React Native)  ← REDUNDANT
 ```
 
-### `@content-renderer/core`
+### `@laddhaanshul/content-renderer-core`
 
 The foundational package. Contains all parsers, utilities, hooks, providers, plugins, themes, accessibility, SSR, error recovery, i18n, and PDF export. Has zero React dependencies — purely TypeScript logic.
 
 **Sub-path exports:**
 | Export Path | Contents |
 |---|---|
-| `@content-renderer/core` | Main entry — all parsers, utils, hooks, types, plugins, themes |
-| `@content-renderer/core/parsers` | HTMLParser, JSONParser, XMLParser, PHPParser, MarkdownParser, CSSParser |
-| `@content-renderer/core/utils` | Extract, sanitize, transform, validate, CSS engine, SSR, error recovery, PDF |
-| `@content-renderer/core/hooks` | useContentParser, useExtract, useTheme, useContentService |
-| `@content-renderer/core/plugins` | PluginManager, PluginPriority, 8 built-in plugins |
-| `@content-renderer/core/themes` | lightTheme, darkTheme |
-| `@content-renderer/core/types` | All TypeScript type definitions |
+| `@laddhaanshul/content-renderer-core` | Main entry — all parsers, utils, hooks, types, plugins, themes |
+| `@laddhaanshul/content-renderer-core/parsers` | HTMLParser, JSONParser, XMLParser, PHPParser, MarkdownParser, CSSParser |
+| `@laddhaanshul/content-renderer-core/utils` | Extract, sanitize, transform, validate, CSS engine, SSR, error recovery, PDF |
+| `@laddhaanshul/content-renderer-core/hooks` | useContentParser, useExtract, useTheme, useContentService |
+| `@laddhaanshul/content-renderer-core/plugins` | PluginManager, PluginPriority, 8 built-in plugins |
+| `@laddhaanshul/content-renderer-core/themes` | lightTheme, darkTheme |
+| `@laddhaanshul/content-renderer-core/types` | All TypeScript type definitions |
 
 **Build output:** Dual CJS + ESM via separate tsconfig files (`tsconfig.cjs.json`, `tsconfig.esm.json`)
 
-### `@content-renderer/react-and-native`
+### `@laddhaanshul/content-renderer`
 
 The UI package. Provides React components with platform-aware file resolution. When Metro bundler (React Native) processes imports, it automatically selects `.native.tsx` variants. When Vite/Webpack processes imports, it selects `.web.tsx` or `.tsx` base variants.
 
@@ -168,13 +168,13 @@ components/web/               ← Web-only component implementations
 | Main | `src/index.ts` | Web apps (Vite/Webpack) |
 | Native | `src/index.native.ts` | React Native apps (Metro bundler) |
 
-**Re-exports from core:** The `index.ts` re-exports 100% of core's public API — all parsers, utils, hooks, HOCs, providers, plugins, themes, accessibility, SSR, error recovery, i18n, and PDF export. Consumers only need `@content-renderer/react-and-native` to access everything.
+**Re-exports from core:** The `index.ts` re-exports 100% of core's public API — all parsers, utils, hooks, HOCs, providers, plugins, themes, accessibility, SSR, error recovery, i18n, and PDF export. Consumers only need `@laddhaanshul/content-renderer` to access everything.
 
 **Build output:** Dual CJS + ESM. Native builds are handled by Metro bundler at runtime, not by `tsc`.
 
-### `@content-renderer/react-and-native` (REDUNDANT — Should Be Removed)
+### `@laddhaanshul/content-renderer` (REDUNDANT — Should Be Removed)
 
-This package was created as a standalone React Native package, but it is **completely redundant** because `@content-renderer/react-and-native` already has full native support:
+This package was created as a standalone React Native package, but it is **completely redundant** because `@laddhaanshul/content-renderer` already has full native support:
 
 | Feature | In `react/` | In `react-native/` | Status |
 |---|---|---|---|
@@ -230,7 +230,7 @@ This package was created as a standalone React Native package, but it is **compl
 
 ## Available API & Exported Items
 
-### `@content-renderer/core`
+### `@laddhaanshul/content-renderer-core`
 
 The core package provides the logic for parsing, extraction, and utilities.
 
@@ -274,9 +274,9 @@ The core package provides the logic for parsing, extraction, and utilities.
 - `i18n`: 42 locales, RTL support, localization utilities.
 - `PDF Export`: `contentToPrintableHTML`, `downloadPDF`, `previewPDF`.
 
-### `@content-renderer/react-and-native`
+### `@laddhaanshul/content-renderer`
 
-The UI package re-exports everything from `@content-renderer/core` and adds platform-aware components.
+The UI package re-exports everything from `@laddhaanshul/content-renderer-core` and adds platform-aware components.
 
 #### Components (Universal)
 - `ContentRenderer`: The main auto-detecting entry point.
@@ -372,7 +372,7 @@ This is the standard pattern used by React Navigation, React Native Paper, and o
 
 ### 2. Core Has No React Dependency
 
-`@content-renderer/core` is pure TypeScript with zero React imports. This means it can be used in Node.js servers, CLI tools, or any JavaScript environment without pulling in React.
+`@laddhaanshul/content-renderer-core` is pure TypeScript with zero React imports. This means it can be used in Node.js servers, CLI tools, or any JavaScript environment without pulling in React.
 
 ### 3. Dual CJS + ESM Output
 
@@ -394,16 +394,16 @@ The `packages/react-native/` package was created separately but is fully redunda
 
 | Package | Dependencies |
 |---|---|
-| `@content-renderer/core` | `css-tree@^2.3.1`, `entities@^4.5.0`, `htmlparser2@^9.0.0` |
-| `@content-renderer/react-and-native` | `@content-renderer/core@1.0.0`, `entities@^4.5.0`, `htmlparser2@^9.0.0` |
-| `@content-renderer/react-and-native` | `@content-renderer/core@1.0.0`, `htmlparser2@^9.0.0`, `entities@^4.5.0` |
+| `@laddhaanshul/content-renderer-core` | `css-tree@^2.3.1`, `entities@^4.5.0`, `htmlparser2@^9.0.0` |
+| `@laddhaanshul/content-renderer` | `@laddhaanshul/content-renderer-core@1.0.0`, `entities@^4.5.0`, `htmlparser2@^9.0.0` |
+| `@laddhaanshul/content-renderer` | `@laddhaanshul/content-renderer-core@1.0.0`, `htmlparser2@^9.0.0`, `entities@^4.5.0` |
 
 ### Peer Dependencies
 
 | Package | Peer Dependencies |
 |---|---|
-| `@content-renderer/react-and-native` | `react@>=17.0.0` (required), `react-dom@>=17.0.0` (optional), `react-native@>=0.68.0` (optional) |
-| `@content-renderer/react-and-native` | `react@>=17.0.0` (required), `react-native@>=0.68.0` (required) |
+| `@laddhaanshul/content-renderer` | `react@>=17.0.0` (required), `react-dom@>=17.0.0` (optional), `react-native@>=0.68.0` (optional) |
+| `@laddhaanshul/content-renderer` | `react@>=17.0.0` (required), `react-native@>=0.68.0` (required) |
 
 ---
 
@@ -470,7 +470,7 @@ The `packages/react-native/` package was created separately but is fully redunda
 2. **Move `turbo-modules.ts`** to `packages/react-and-native/src/turbo-modules.ts` and export from `index.ts` / `index.native.ts`
 3. **Update root `package.json`** — Remove any react-native workspace references from scripts
 4. **Update root `tsconfig.json`** — Remove any react-native project references
-5. **Update `apps/native-example/package.json`** — Change `@content-renderer/react-and-native` dep to `@content-renderer/react-and-native`
+5. **Update `apps/native-example/package.json`** — Change `@laddhaanshul/content-renderer` dep to `@laddhaanshul/content-renderer`
 6. **Run full build** — Verify zero errors after removal
 7. **Clean up backup files** — Remove `*.backup`, `*.backup2` files from `packages/core/src/types/`
 8. **Clean up scripts** — Remove `final-updated-fix.sh` after successful build

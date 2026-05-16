@@ -15,7 +15,7 @@ export default function SSRExample() {
         <li><strong>isServer / isClient</strong> - Environment detection utilities</li>
       </ul>
       <h3>Next.js Example</h3>
-      <pre>{`import { renderToString } from '@content-renderer/core';
+      <pre>{`import { renderToString } from '@laddhaanshul/content-renderer-core';
 
 export default function Page({ content }) {
   const html = renderToString(content, {

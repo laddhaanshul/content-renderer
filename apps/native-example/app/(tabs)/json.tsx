@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Switch,
 } from 'react-native';
-import { JSONRenderer } from '@content-renderer/react-and-native';
+import { JSONRenderer } from '@laddhaanshul/content-renderer';
 
 const basicJSON = {
   name: 'Content Renderer',
@@ -100,7 +100,7 @@ export default function JSONScreen() {
       {/* Usage */}
       <View style={styles.usageBox}>
         <Text style={styles.usageTitle}>Usage</Text>
-        <Text style={styles.usageCode}>{`import { JSONRenderer } from '@content-renderer/react-and-native';
+        <Text style={styles.usageCode}>{`import { JSONRenderer } from '@laddhaanshul/content-renderer';
 
 <JSONRenderer
   data={jsonObject}

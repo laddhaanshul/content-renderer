@@ -182,7 +182,7 @@ export default function HooksExample() {
         <CodeBlock
           language="tsx"
           title="Hooks"
-          code={`import { useContentParser, useExtract, useTheme } from '@content-renderer/core';
+          code={`import { useContentParser, useExtract, useTheme } from '@laddhaanshul/content-renderer-core';
 
 // useContentParser
 const { parsed, isLoading, isError, error, parse, reset, metadata } = useContentParser({

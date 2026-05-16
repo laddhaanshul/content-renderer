@@ -1,8 +1,8 @@
-# @content-renderer/react-and-native
+# @laddhaanshul/content-renderer
 
-[![npm version](https://img.shields.io/npm/v/@content-renderer/react-and-native.svg)](https://www.npmjs.com/package/@content-renderer/react-and-native)
-[![npm downloads](https://img.shields.io/npm/dm/@content-renderer/react-and-native.svg)](https://www.npmjs.com/package/@content-renderer/react-and-native)
-[![license](https://img.shields.io/npm/l/@content-renderer/react-and-native.svg)](https://github.com/laddhaanshul/content-renderer/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@laddhaanshul/content-renderer.svg)](https://www.npmjs.com/package/@laddhaanshul/content-renderer)
+[![npm downloads](https://img.shields.io/npm/dm/@laddhaanshul/content-renderer.svg)](https://www.npmjs.com/package/@laddhaanshul/content-renderer)
+[![license](https://img.shields.io/npm/l/@laddhaanshul/content-renderer.svg)](https://github.com/laddhaanshul/content-renderer/blob/main/LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
 
 > Universal React components for rendering HTML, Markdown, JSON, XML, PHP, CSS, and source code — on both **React DOM (web)** and **React Native (mobile)** from a single import. Components auto-select the correct platform implementation at bundle time.
@@ -14,9 +14,9 @@
 ## Installation
 
 ```bash
-npm install @content-renderer/react-and-native
-yarn add @content-renderer/react-and-native
-pnpm add @content-renderer/react-and-native
+npm install @laddhaanshul/content-renderer
+yarn add @laddhaanshul/content-renderer
+pnpm add @laddhaanshul/content-renderer
 ```
 
 **Peer Dependencies:**
@@ -27,14 +27,14 @@ pnpm add @content-renderer/react-and-native
 | `react-dom` | `>=17.0.0` | Web only |
 | `react-native` | `>=0.68.0` | Native only |
 
-**Also installs:** `@content-renderer/core` (same version — automatically kept in sync).
+**Also installs:** `@laddhaanshul/content-renderer-core` (same version — automatically kept in sync).
 
 ---
 
 ## Quick Start
 
 ```tsx
-import { ContentRenderer } from '@content-renderer/react-and-native';
+import { ContentRenderer } from '@laddhaanshul/content-renderer';
 
 // Auto-detects HTML, JSON, Markdown, code, XML, CSS, PHP
 <ContentRenderer content={anyString} />
@@ -57,7 +57,7 @@ import { ContentRenderer } from '@content-renderer/react-and-native';
 The single entry point. Detects the content type and delegates to the right renderer.
 
 ```tsx
-import { ContentRenderer } from '@content-renderer/react-and-native';
+import { ContentRenderer } from '@laddhaanshul/content-renderer';
 
 <ContentRenderer
   content={anyString}
@@ -109,7 +109,7 @@ import { ContentRenderer } from '@content-renderer/react-and-native';
 Renders raw HTML strings as React elements with full DOM support.
 
 ```tsx
-import { HTMLRenderer } from '@content-renderer/react-and-native';
+import { HTMLRenderer } from '@laddhaanshul/content-renderer';
 
 <HTMLRenderer
   html="<h1>Hello</h1><p>Click <a href='/page'>here</a></p>"
@@ -148,7 +148,7 @@ import { HTMLRenderer } from '@content-renderer/react-and-native';
 Renders GitHub-Flavored Markdown with custom component support.
 
 ```tsx
-import { MarkdownRenderer } from '@content-renderer/react-and-native';
+import { MarkdownRenderer } from '@laddhaanshul/content-renderer';
 
 <MarkdownRenderer
   content={markdownString}
@@ -183,7 +183,7 @@ import { MarkdownRenderer } from '@content-renderer/react-and-native';
 Interactive, collapsible JSON tree viewer with search and copy.
 
 ```tsx
-import { JSONRenderer } from '@content-renderer/react-and-native';
+import { JSONRenderer } from '@laddhaanshul/content-renderer';
 
 <JSONRenderer
   json={JSON.stringify(apiResponse, null, 2)}
@@ -221,7 +221,7 @@ import { JSONRenderer } from '@content-renderer/react-and-native';
 Syntax-highlighted code blocks with line numbers, diff highlighting, and copy.
 
 ```tsx
-import { CodeRenderer } from '@content-renderer/react-and-native';
+import { CodeRenderer } from '@laddhaanshul/content-renderer';
 
 <CodeRenderer
   code={sourceCode}
@@ -259,8 +259,8 @@ import { CodeRenderer } from '@content-renderer/react-and-native';
 Side-by-side or unified diff viewer.
 
 ```tsx
-import { DiffRenderer } from '@content-renderer/react-and-native';
-import type { DiffRendererProps } from '@content-renderer/react-and-native';
+import { DiffRenderer } from '@laddhaanshul/content-renderer';
+import type { DiffRendererProps } from '@laddhaanshul/content-renderer';
 
 <DiffRenderer
   oldContent={previousCode}
@@ -279,8 +279,8 @@ import type { DiffRendererProps } from '@content-renderer/react-and-native';
 Performance-optimized code renderer for files with thousands of lines.
 
 ```tsx
-import { VirtualizedCodeRenderer } from '@content-renderer/react-and-native';
-import type { VirtualizedCodeRendererProps } from '@content-renderer/react-and-native';
+import { VirtualizedCodeRenderer } from '@laddhaanshul/content-renderer';
+import type { VirtualizedCodeRendererProps } from '@laddhaanshul/content-renderer';
 
 <VirtualizedCodeRenderer
   code={largeFile}
@@ -298,7 +298,7 @@ import type { VirtualizedCodeRendererProps } from '@content-renderer/react-and-n
 PHP source code with dedicated syntax highlighting.
 
 ```tsx
-import { PHPRenderer } from '@content-renderer/react-and-native';
+import { PHPRenderer } from '@laddhaanshul/content-renderer';
 
 <PHPRenderer content={phpCode} showLineNumbers theme="monokai" />
 ```
@@ -310,7 +310,7 @@ import { PHPRenderer } from '@content-renderer/react-and-native';
 Collapsible XML tree view with attribute highlighting.
 
 ```tsx
-import { XMLRenderer } from '@content-renderer/react-and-native';
+import { XMLRenderer } from '@laddhaanshul/content-renderer';
 
 <XMLRenderer content={xmlString} defaultCollapsed={false} theme="dark" />
 ```
@@ -322,7 +322,7 @@ import { XMLRenderer } from '@content-renderer/react-and-native';
 CSS source display with property and value highlighting.
 
 ```tsx
-import { CSSRenderer } from '@content-renderer/react-and-native';
+import { CSSRenderer } from '@laddhaanshul/content-renderer';
 
 <CSSRenderer content={cssString} showLineNumbers theme="github" />
 ```
@@ -334,7 +334,7 @@ import { CSSRenderer } from '@content-renderer/react-and-native';
 Fetches content from a URL and renders it directly. Supports AEM, headless CMS, and any REST API.
 
 ```tsx
-import { ContentServiceRenderer } from '@content-renderer/react-and-native';
+import { ContentServiceRenderer } from '@laddhaanshul/content-renderer';
 
 // Auto-detect
 <ContentServiceRenderer
@@ -401,7 +401,7 @@ import { ContentServiceRenderer } from '@content-renderer/react-and-native';
 Catches rendering errors and displays a fallback.
 
 ```tsx
-import { ErrorBoundary } from '@content-renderer/react-and-native';
+import { ErrorBoundary } from '@laddhaanshul/content-renderer';
 
 <ErrorBoundary
   fallback={<div className="error">Something went wrong</div>}
@@ -415,7 +415,7 @@ import { ErrorBoundary } from '@content-renderer/react-and-native';
 
 ## Hooks
 
-All hooks from `@content-renderer/core` are re-exported here for convenience:
+All hooks from `@laddhaanshul/content-renderer-core` are re-exported here for convenience:
 
 ```typescript
 import {
@@ -423,7 +423,7 @@ import {
   useExtract,         // Extract links/images/meta/etc.
   useTheme,           // Manage light/dark theme
   useContentService,  // Fetch + render from URL
-} from '@content-renderer/react-and-native';
+} from '@laddhaanshul/content-renderer';
 ```
 
 ### Animation Hooks
@@ -439,8 +439,8 @@ import {
   animateNumber,           // Animate a numeric value over time
   createStaggerAnimation,  // Stagger children animations
   getTransitionCSS,        // Get CSS transition string
-} from '@content-renderer/react-and-native';
-import type { EasingFunction } from '@content-renderer/react-and-native';
+} from '@laddhaanshul/content-renderer';
+import type { EasingFunction } from '@laddhaanshul/content-renderer';
 
 // Example: fade in on mount
 function MyComponent() {
@@ -476,9 +476,9 @@ import {
   isLanguageSupported,   // Check language support
   resolveLanguageName,   // 'js' → 'javascript'
   tokensToHtml,          // Convert tokens to HTML string
-} from '@content-renderer/react-and-native';
+} from '@laddhaanshul/content-renderer';
 
-import type { Token, TokenType } from '@content-renderer/react-and-native';
+import type { Token, TokenType } from '@laddhaanshul/content-renderer';
 ```
 
 ### Native (React Native)
@@ -498,14 +498,14 @@ import {
   lightNativeTheme,      // Light theme for native components
   darkNativeTheme,       // Dark theme for native components
   mergeNativeTheme,      // Deep merge two native themes
-} from '@content-renderer/react-and-native';
+} from '@laddhaanshul/content-renderer';
 
 import type {
   HTMLTagMappingRN, HTMLNodeRN,
   SyntaxToken, SyntaxTheme, TokenizerState,
   NativeTheme, NativeThemeColors, NativeThemeTypography,
   NativeThemeSpacing, NativeThemeCodeBlock,
-} from '@content-renderer/react-and-native';
+} from '@laddhaanshul/content-renderer';
 ```
 
 ### Worker (background highlighting)
@@ -515,63 +515,63 @@ import {
   createHighlightWorker, // Create a Web Worker for highlighting
   highlightInWorker,     // Highlight in background thread
   highlightOnce,         // One-shot background highlight
-} from '@content-renderer/react-and-native';
+} from '@laddhaanshul/content-renderer';
 
-import type { WorkerMessage, WorkerResult, HighlightToken } from '@content-renderer/react-and-native';
+import type { WorkerMessage, WorkerResult, HighlightToken } from '@laddhaanshul/content-renderer';
 ```
 
 ---
 
-## Re-exports from `@content-renderer/core`
+## Re-exports from `@laddhaanshul/content-renderer-core`
 
-Everything from `@content-renderer/core` is re-exported for convenience:
+Everything from `@laddhaanshul/content-renderer-core` is re-exported for convenience:
 
 ```typescript
 // Parsers
 import { HTMLParser, JSONParser, XMLParser, PHPParser, MarkdownParser, CSSParser }
-  from '@content-renderer/react-and-native';
+  from '@laddhaanshul/content-renderer';
 
 // Extraction
 import { extractAll, extractLinks, extractSEO, extractOpenGraph, extractStructuredData }
-  from '@content-renderer/react-and-native';
+  from '@laddhaanshul/content-renderer';
 
 // Sanitization
 import { sanitizeHTML, stripTags, escapeHTML, DEFAULT_ALLOWED_TAGS }
-  from '@content-renderer/react-and-native';
+  from '@laddhaanshul/content-renderer';
 
 // Transform
 import { minifyHTML, formatHTML, detectContentType, slugify }
-  from '@content-renderer/react-and-native';
+  from '@laddhaanshul/content-renderer';
 
 // Validation
 import { isValidHTML, isValidJSON, isValidURL }
-  from '@content-renderer/react-and-native';
+  from '@laddhaanshul/content-renderer';
 
 // Hooks
 import { useContentParser, useExtract, useTheme, useContentService }
-  from '@content-renderer/react-and-native';
+  from '@laddhaanshul/content-renderer';
 
 // HOCs
 import { withContentParser, withExtract }
-  from '@content-renderer/react-and-native';
+  from '@laddhaanshul/content-renderer';
 
 // Provider + themes
 import { ContentParserProvider, lightTheme, darkTheme }
-  from '@content-renderer/react-and-native';
+  from '@laddhaanshul/content-renderer';
 
 // Plugin system
 import { PluginManager, lineNumbersPlugin, tocPlugin, sanitizePlugin }
-  from '@content-renderer/react-and-native';
+  from '@laddhaanshul/content-renderer';
 
 // Advanced
-import { renderToString, generateHeadTags }           from '@content-renderer/react-and-native'; // SSR
-import { isRTL, formatDate, SUPPORTED_LOCALES }       from '@content-renderer/react-and-native'; // i18n
-import { downloadPDF, previewPDF }                     from '@content-renderer/react-and-native'; // PDF
-import { createDiff, createUnifiedDiff }               from '@content-renderer/react-and-native'; // Diff
-import { queryPath, queryPathSingle }                  from '@content-renderer/react-and-native'; // JSONPath
-import { EXTENDED_LANGUAGES, THEME_REGISTRY }          from '@content-renderer/react-and-native'; // Syntax
-import { recoverFromHTMLError, suggestFixes }          from '@content-renderer/react-and-native'; // Errors
-import { validateAccessibility, checkColorContrast }  from '@content-renderer/react-and-native'; // a11y
+import { renderToString, generateHeadTags }           from '@laddhaanshul/content-renderer'; // SSR
+import { isRTL, formatDate, SUPPORTED_LOCALES }       from '@laddhaanshul/content-renderer'; // i18n
+import { downloadPDF, previewPDF }                     from '@laddhaanshul/content-renderer'; // PDF
+import { createDiff, createUnifiedDiff }               from '@laddhaanshul/content-renderer'; // Diff
+import { queryPath, queryPathSingle }                  from '@laddhaanshul/content-renderer'; // JSONPath
+import { EXTENDED_LANGUAGES, THEME_REGISTRY }          from '@laddhaanshul/content-renderer'; // Syntax
+import { recoverFromHTMLError, suggestFixes }          from '@laddhaanshul/content-renderer'; // Errors
+import { validateAccessibility, checkColorContrast }  from '@laddhaanshul/content-renderer'; // a11y
 ```
 
 ---
@@ -590,7 +590,7 @@ import type {
   NativeTheme, NativeThemeColors, NativeThemeCodeBlock,
   WorkerMessage, WorkerResult, HighlightToken,
   Token, TokenType,
-} from '@content-renderer/react-and-native';
+} from '@laddhaanshul/content-renderer';
 
 // Re-exported core types:
 import type {
@@ -600,7 +600,7 @@ import type {
   JSONRendererProps, MarkdownRendererProps, PHPRendererProps,
   UseContentParserOptions, UseContentServiceReturn,
   PluginDefinition, SanitizeOptions, SSRRenderOptions,
-} from '@content-renderer/react-and-native';
+} from '@laddhaanshul/content-renderer';
 ```
 
 ---
@@ -611,7 +611,7 @@ Metro automatically resolves `.native.tsx` files when bundling for React Native 
 
 ```tsx
 // Works identically on web and native
-import { HTMLRenderer, CodeRenderer } from '@content-renderer/react-and-native';
+import { HTMLRenderer, CodeRenderer } from '@laddhaanshul/content-renderer';
 
 <CodeRenderer code={snippet} language="javascript" showLineNumbers />
 ```

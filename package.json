@@ -2,15 +2,15 @@
   "name": "content-renderer-monorepo",
   "version": "1.0.0",
   "private": true,
-  "description": "Monorepo for @content-renderer - Universal content rendering for React and React Native",
+  "description": "Monorepo for @laddhaanshul/content-renderer - Universal content rendering for React and React Native",
   "workspaces": [
     "packages/*",
     "apps/*"
   ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
-    "build:core": "npm run build --workspace=@content-renderer/core",
-    "build:react": "npm run build --workspace=@content-renderer/react-and-native",
+    "build:core": "npm run build --workspace=@laddhaanshul/content-renderer-core",
+    "build:react": "npm run build --workspace=@laddhaanshul/content-renderer",
     "build:all": "node -e \"const{execSync}=require('child_process');execSync('npm run build',{cwd:'packages/core',stdio:'inherit'});execSync('npm run build',{cwd:'packages/react-and-native',stdio:'inherit'})\"",
     "typecheck": "npm run build:core && npm run typecheck --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",

@@ -16,8 +16,8 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@content-renderer/react-and-native": ["../../packages/react-and-native/src"],
-      "@content-renderer/core": ["../../packages/core/src"]
+      "@laddhaanshul/content-renderer": ["../../packages/react-and-native/src"],
+      "@laddhaanshul/content-renderer-core": ["../../packages/core/src"]
     }
   },
   "include": ["src"],

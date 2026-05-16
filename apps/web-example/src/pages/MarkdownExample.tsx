@@ -53,13 +53,13 @@ For more information, visit [the documentation](https://example.com/docs).`,
 Install the packages:
 
 \`\`\`bash
-npm install @content-renderer/react-and-native @content-renderer/core
+npm install @laddhaanshul/content-renderer @laddhaanshul/content-renderer-core
 \`\`\`
 
 Then import and use:
 
 \`\`\`tsx
-import { HTMLRenderer, JSONRenderer } from '@content-renderer/react-and-native';
+import { HTMLRenderer, JSONRenderer } from '@laddhaanshul/content-renderer';
 
 function App() {
   return (
@@ -144,7 +144,7 @@ React Native content rendering is powerful[^1].
 
 It supports cross-platform rendering[^2] out of the box.
 
-[^1]: Especially with the @content-renderer/react-and-native package.
+[^1]: Especially with the @laddhaanshul/content-renderer package.
 [^2]: Works on iOS, Android, and Web from a single codebase.
 
 ## Definition Lists
@@ -221,7 +221,7 @@ export default function MarkdownExample() {
         <CodeBlock
           language="tsx"
           title="Component"
-          code={`import { MarkdownRenderer } from '@content-renderer/react-and-native';
+          code={`import { MarkdownRenderer } from '@laddhaanshul/content-renderer';
 
 function MyComponent() {
   return (

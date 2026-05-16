@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFadeIn, useSlideIn, useTypewriter } from '@content-renderer/react-and-native';
+import { useFadeIn, useSlideIn, useTypewriter } from '@laddhaanshul/content-renderer';
 
 export default function AnimationExample() {
   const [visible, setVisible] = useState(true);
@@ -36,7 +36,7 @@ export default function AnimationExample() {
         <strong>Typewriter:</strong> {typewriter.displayText}<span style={{ opacity: 0.5 }}>{typewriter.isComplete ? '' : '|'}</span>
       </div>
       <h3>Usage</h3>
-      <pre>{`import { useFadeIn, useSlideIn, useTypewriter } from '@content-renderer/react-and-native';
+      <pre>{`import { useFadeIn, useSlideIn, useTypewriter } from '@laddhaanshul/content-renderer';
 
 function MyComponent() {
   const fadeIn = useFadeIn(500);

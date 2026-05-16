@@ -86,7 +86,7 @@ export default function HomeScreen() {
       {/* Footer */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>
-          Built with @content-renderer/react-and-native &amp; @content-renderer/core
+          Built with @laddhaanshul/content-renderer &amp; @laddhaanshul/content-renderer-core
         </Text>
         <Text style={styles.footerSubtext}>
           MIT License • Open Source • Zero-dependency core

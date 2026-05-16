@@ -1,5 +1,5 @@
 // ==========================================
-// @content-renderer/core - Plugins
+// @laddhaanshul/content-renderer-core - Plugins
 // ==========================================
 
 // Plugin Manager

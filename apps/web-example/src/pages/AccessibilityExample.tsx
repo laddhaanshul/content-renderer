@@ -19,7 +19,7 @@ export default function AccessibilityExample() {
   validateAccessibility,
   getAriaRole,
   checkColorContrast,
-} from '@content-renderer/core';
+} from '@laddhaanshul/content-renderer-core';
 
 const issues = validateAccessibility(html, {
   checkContrast: true,
