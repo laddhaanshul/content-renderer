@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
+      - run: yarn install --frozen-lockfile
       - run: npm run typecheck
 
   build:
@@ -31,7 +31,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
+      - run: yarn install --frozen-lockfile
       - name: Build core first
         run: npm run build --workspace=@content-renderer/core
       - name: Build react-and-native
@@ -58,5 +58,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
+      - run: yarn install --frozen-lockfile
       - run: npm run build --workspace=content-renderer-web-example
