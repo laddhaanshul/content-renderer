@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "lib": ["ES2020"],
+    "jsx": "react-jsx",
+    "outDir": "./dist/native",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "src/index.native.ts",
+    "src/utils/index.native.ts",
+    "src/components/*.native.tsx",
+    "src/utils/*.native.ts",
+    "src/utils/style-parser.web.ts",
+    "src/utils/syntax-highlight.web.ts",
+    "src/themes/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", "**/*.web.tsx", "src/**/*.web.tsx", "src/components/CodeRenderer.tsx", "src/components/CSSRenderer.tsx", "src/components/ContentRenderer.tsx", "src/components/ErrorBoundary.tsx", "src/components/HTMLRenderer.tsx", "src/components/JSONRenderer.tsx", "src/components/MarkdownRenderer.tsx", "src/components/PHPRenderer.tsx", "src/components/XMLRenderer.tsx", "src/components/index.ts", "src/index.ts", "src/utils/index.ts"]
+}

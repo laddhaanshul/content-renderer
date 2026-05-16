@@ -1,0 +1,73 @@
+{
+  "name": "@content-renderer/core",
+  "version": "1.0.0",
+  "description": "Platform-agnostic parsing, extraction, sanitization and transformation engine for HTML, JSON, XML, Markdown, PHP and CSS. Works in browsers, Node.js, Next.js and React Native.",
+  "homepage": "https://content-renderer.anshulladdha.in/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laddhaanshul/content-renderer.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/laddhaanshul/content-renderer/issues"
+  },
+  "author": "Content Renderer Contributors",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "keywords": [
+    "content-renderer",
+    "html-parser",
+    "json-parser",
+    "xml-parser",
+    "php-parser",
+    "markdown-parser",
+    "css-parser",
+    "extraction",
+    "sanitize",
+    "xss",
+    "ssr",
+    "i18n",
+    "rtl",
+    "react",
+    "react-native",
+    "typescript",
+    "plugin-system",
+    "accessibility",
+    "pdf"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "css-tree": "^2.3.1",
+    "entities": "^4.5.0",
+    "htmlparser2": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}

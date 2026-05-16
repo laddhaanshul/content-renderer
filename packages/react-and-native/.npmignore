@@ -1,0 +1,10 @@
+# Dev files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+jest.config.js
+tsconfig*.json
+coverage/
+__tests__/
+__mocks__/

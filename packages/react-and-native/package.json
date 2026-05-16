@@ -1,0 +1,98 @@
+{
+  "name": "@content-renderer/react-and-native",
+  "version": "1.0.0",
+  "description": "Universal React and React Native components for rendering HTML, Markdown, JSON, XML, PHP, CSS and source code. Auto-detects content type. Runs on web and mobile from a single import.",
+  "homepage": "https://content-renderer.anshulladdha.in/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laddhaanshul/content-renderer.git",
+    "directory": "packages/react-and-native"
+  },
+  "bugs": {
+    "url": "https://github.com/laddhaanshul/content-renderer/issues"
+  },
+  "author": "Content Renderer Contributors",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "react-native": "./dist/native/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    },
+    "./native": {
+      "import": {
+        "types": "./dist/native/index.d.ts",
+        "default": "./dist/native/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:native": "echo 'Native builds are handled by Metro bundler in React Native projects. Use typecheck:native for type checking.'",
+    "typecheck:native": "echo 'Native type-check: run tsc -p tsconfig.native.json in your React Native project with DOM stubs, or use Metro bundler directly.'",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "content-renderer",
+    "html-renderer",
+    "markdown-renderer",
+    "json-renderer",
+    "code-renderer",
+    "xml-renderer",
+    "css-renderer",
+    "diff-viewer",
+    "syntax-highlighting",
+    "content-service",
+    "aem",
+    "headless-cms",
+    "universal",
+    "cross-platform",
+    "typescript",
+    "animations"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0",
+    "react-native": ">=0.68.0"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@content-renderer/core": "1.0.0",
+    "entities": "^4.5.0",
+    "htmlparser2": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-native": "^0.73.4",
+    "typescript": "^5.3.3"
+  }
+}

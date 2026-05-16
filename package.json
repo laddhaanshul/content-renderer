@@ -1,0 +1,58 @@
+{
+  "name": "content-renderer-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo for @content-renderer - Universal content rendering for React and React Native",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "build:core": "npm run build --workspace=@content-renderer/core",
+    "build:react": "npm run build --workspace=@content-renderer/react-and-native",
+    "build:all": "node -e \"const{execSync}=require('child_process');execSync('npm run build',{cwd:'packages/core',stdio:'inherit'});execSync('npm run build',{cwd:'packages/react-and-native',stdio:'inherit'})\"",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
+    "dev:web": "npm run dev --workspace=content-renderer-web-example",
+    "dev:native": "npm start --workspace=content-renderer-native-example",
+    "version:patch": "npm version patch --no-git-tag-version -w packages/core -w packages/react-and-native && node scripts/sync-versions.js",
+    "version:minor": "npm version minor --no-git-tag-version -w packages/core -w packages/react-and-native && node scripts/sync-versions.js",
+    "version:major": "npm version major --no-git-tag-version -w packages/core -w packages/react-and-native && node scripts/sync-versions.js",
+    "sync-versions": "node scripts/sync-versions.js",
+    "prerelease": "npm run build:all"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.0"
+  },
+  "overrides": {
+    "ajv": "^8.8.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "resolutions": {
+    "react": "18.2.0",
+    "react-native": "0.73.6",
+    "@types/react": "^18.2.48"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/user/content-renderer.git"
+  },
+  "author": "Content Renderer Team",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "react-native",
+    "content-renderer",
+    "html",
+    "markdown",
+    "json",
+    "parser",
+    "code-highlighting"
+  ],
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}

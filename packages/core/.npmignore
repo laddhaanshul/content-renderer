@@ -1,0 +1,13 @@
+# Source (shipped in src/ for source maps, excluded from bundle count)
+# Keep dist/ and src/ — they're in `files` array in package.json
+
+# Dev files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+jest.config.js
+tsconfig*.json
+coverage/
+__tests__/
+__mocks__/
