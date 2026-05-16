@@ -87,26 +87,7 @@ jobs:
           VERSION="${{ steps.resolve_version.outputs.version }}"
           echo "📦 Bumping all packages to v$VERSION"
 
-          # Bump root
-          npm version "$VERSION" --no-git-tag-version --allow-same-version
-
-          # Bump @content-renderer/core
-          cd packages/core
-          npm version "$VERSION" --no-git-tag-version --allow-same-version
-          cd ../..
-
-          # Bump @content-renderer/react-and-native AND update its core dependency
-          cd packages/react-and-native
-          npm version "$VERSION" --no-git-tag-version --allow-same-version
-          # Update the pinned core version to match
-          node -e "
-            const fs = require('fs');
-            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-            pkg.dependencies['@content-renderer/core'] = '$VERSION';
-            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-            console.log('✅ Updated @content-renderer/core dep to', '$VERSION');
-          "
-          cd ../..
+          node scripts/sync-versions.js "$VERSION"
 
           echo "📋 Final package versions:"
           node -p "require('./package.json').version"
