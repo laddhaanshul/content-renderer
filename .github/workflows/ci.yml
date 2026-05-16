@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run typecheck
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [typecheck]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - name: Build core first
+        run: npm run build --workspace=@content-renderer/core
+      - name: Build react-and-native
+        run: npm run build --workspace=@content-renderer/react-and-native
+      - name: Verify react-and-native core dep is satisfied
+        run: |
+          CORE_VER=$(node -p "require('./packages/core/package.json').version")
+          RAN_CORE_DEP=$(node -p "require('./packages/react-and-native/package.json').dependencies['@content-renderer/core']")
+          echo "core version:       $CORE_VER"
+          echo "react-and-native dep: $RAN_CORE_DEP"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: packages/*/dist/
+          retention-days: 7
+
+  build-example:
+    name: Build Web Example
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --workspace=content-renderer-web-example
