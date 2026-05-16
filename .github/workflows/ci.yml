@@ -19,7 +19,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
       - run: npm ci
       - run: npm run typecheck
 
@@ -32,7 +31,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
       - run: npm ci
       - name: Build core first
         run: npm run build --workspace=@content-renderer/core
@@ -60,6 +58,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
       - run: npm ci
       - run: npm run build --workspace=content-renderer-web-example
