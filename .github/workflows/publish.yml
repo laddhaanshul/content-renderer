@@ -162,8 +162,6 @@ jobs:
 
       - name: Restore package.json files to correct paths
         run: |
-          # The artifact is flat — restore each one
-          cp package.json packages/core/package.json 2>/dev/null || true
           # Artifacts upload paths are preserved relative to repo root, so just verify
           echo "Core package.json version: $(node -p "require('./packages/core/package.json').version")"
 
@@ -268,7 +266,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add package.json packages/core/package.json packages/react-and-native/package.json
           git diff --staged --quiet || git commit -m "chore: release v${{ env.VERSION }} [skip ci]"
-          git push
+          git push origin HEAD:main
 
       - name: Create release summary
         run: |
@@ -296,7 +294,7 @@ jobs:
       - name: Install from npm (not workspace)
         working-directory: apps/web-example
         run: |
-          npm install --no-save \
+          npm install --no-save --legacy-peer-deps \
             @laddhaanshul/content-renderer-core@${{ needs.build.outputs.version }} \
             @laddhaanshul/content-renderer@${{ needs.build.outputs.version }}
 
