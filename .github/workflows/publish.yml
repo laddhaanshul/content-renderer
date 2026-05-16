@@ -266,7 +266,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add package.json packages/core/package.json packages/react-and-native/package.json
           git diff --staged --quiet || git commit -m "chore: release v${{ env.VERSION }} [skip ci]"
-          git push origin HEAD:main
+          git push --force origin HEAD:main
 
       - name: Create release summary
         run: |
